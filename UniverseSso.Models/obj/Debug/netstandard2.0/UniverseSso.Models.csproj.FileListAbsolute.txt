@@ -1,0 +1,9 @@
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\bin\Debug\netstandard2.0\UniverseSso.Models.deps.json
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\bin\Debug\netstandard2.0\UniverseSso.Models.dll
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\bin\Debug\netstandard2.0\UniverseSso.Models.pdb
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\obj\Debug\netstandard2.0\UniverseSso.Models.csproj.CoreCompileInputs.cache
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\obj\Debug\netstandard2.0\UniverseSso.Models.AssemblyInfoInputs.cache
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\obj\Debug\netstandard2.0\UniverseSso.Models.AssemblyInfo.cs
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\obj\Debug\netstandard2.0\UniverseSso.Models.dll
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\obj\Debug\netstandard2.0\UniverseSso.Models.pdb
+C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Models\obj\Debug\netstandard2.0\UniverseSso.Models.csprojAssemblyReference.cache

@@ -1,0 +1,38 @@
+[server]
+host = "127.0.0.1"
+port = "8081"
+
+[limits]
+json_data = 4096
+
+[auth_cookie]
+name = "auth"
+path = "/"
+domain = "localhost"
+max_age_days = 1
+secure = false
+secret_key = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+[certificates]
+use_cert_store = "true"
+# the file path should be used in place of signing and encryption
+# if the certificate store's common name/selectors cannot be used.
+signing = "CN=Signing Cert"
+encryption = "CN=Encryption Cert"
+
+[databases]
+[databases.auth]
+db_type = "postgres"
+host = "localhost"
+port = "???"
+username = "???"
+password = "???"
+
+[service_providers]
+[service_providers.a]
+acs_url = "http://test.com/acs"
+audience_url = "http://test.com/metadata"
+
+[service_providers.b]
+acs_url = "http://test.com/acs"
+audience_url = "http://test.com/metadata"

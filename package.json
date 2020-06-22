@@ -1,0 +1,23 @@
+{
+  "name": "universe-sso",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "merge-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "del": "^5.0.0",
+    "gulp": "^4.0.2",
+    "vinyl-paths": "^3.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/jonfast565/universe-sso"
+  },
+  "author": "Jon Fast",
+  "license": "ISC"
+}

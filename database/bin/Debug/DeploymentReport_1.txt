@@ -1,0 +1,25 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[LoginField] (Table)
+       [dbo].[LoginProvider] (Table)
+       Default Constraint: unnamed constraint on [dbo].[LoginField] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[LoginField] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[LoginField] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[LoginField] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[LoginProvider] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[LoginProvider] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[LoginProvider] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[LoginProvider] (Default Constraint)
+       Foreign Key: unnamed constraint on [dbo].[LoginField] (Foreign Key)
+
+** Supporting actions
