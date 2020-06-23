@@ -1,9 +1,0 @@
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\bin\Debug\netstandard2.0\UniverseSso.Saml.deps.json
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\bin\Debug\netstandard2.0\UniverseSso.Saml.dll
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\bin\Debug\netstandard2.0\UniverseSso.Saml.pdb
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\obj\Debug\netstandard2.0\UniverseSso.Saml.csprojAssemblyReference.cache
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\obj\Debug\netstandard2.0\UniverseSso.Saml.csproj.CoreCompileInputs.cache
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\obj\Debug\netstandard2.0\UniverseSso.Saml.AssemblyInfoInputs.cache
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\obj\Debug\netstandard2.0\UniverseSso.Saml.AssemblyInfo.cs
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\obj\Debug\netstandard2.0\UniverseSso.Saml.dll
-C:\Users\jfast\Desktop\Repos\universe-sso\UniverseSso.Saml\obj\Debug\netstandard2.0\UniverseSso.Saml.pdb

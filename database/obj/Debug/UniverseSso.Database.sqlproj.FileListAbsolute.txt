@@ -1,6 +1,0 @@
-C:\Users\jfast\Desktop\Repos\universe-sso\database\bin\Debug\UniverseSso.Database.dacpac
-C:\Users\jfast\Desktop\Repos\universe-sso\database\bin\Debug\UniverseSso.Database.dll
-C:\Users\jfast\Desktop\Repos\universe-sso\database\bin\Debug\UniverseSso.Database.pdb
-C:\Users\jfast\Desktop\Repos\universe-sso\database\obj\Debug\UniverseSso.Database.dll
-C:\Users\jfast\Desktop\Repos\universe-sso\database\obj\Debug\UniverseSso.Database.pdb
-C:\Users\jfast\Desktop\Repos\universe-sso\database\obj\Debug\UniverseSso.Database.sqlprojAssemblyReference.cache
