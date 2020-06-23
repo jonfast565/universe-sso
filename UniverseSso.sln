@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Backend", "back
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "UniverseSso.Database", "database\UniverseSso.Database.sqlproj", "{5FC03852-20DD-4A42-B21B-B3DC83F5E1B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Saml", "UniverseSso.Saml\UniverseSso.Saml.csproj", "{4B5126A2-D06D-4B7F-826F-70DE8C6394F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Saml", "backend\UniverseSso.Saml\UniverseSso.Saml.csproj", "{4B5126A2-D06D-4B7F-826F-70DE8C6394F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Models", "UniverseSso.Models\UniverseSso.Models.csproj", "{82885528-1D5B-45B5-8C42-A67DC20897F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Models", "backend\UniverseSso.Models\UniverseSso.Models.csproj", "{82885528-1D5B-45B5-8C42-A67DC20897F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Entities", "UniverseSso.Entities\UniverseSso.Entities.csproj", "{A00FAC71-B17F-4DFA-9D9F-643CD1D2C230}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Entities", "backend\UniverseSso.Entities\UniverseSso.Entities.csproj", "{A00FAC71-B17F-4DFA-9D9F-643CD1D2C230}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "saml_schema_assertion_2_0", "saml\saml_schema_assertion_2_0\saml_schema_assertion_2_0.csproj", "{922A9969-2C4C-DD48-B4F3-084BD1988396}"
 EndProject
