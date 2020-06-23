@@ -59,7 +59,7 @@
     <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\LoginProvider.sql" />
-    <Build Include="Tables\LoginField.sql" />
+    <Build Include="Tables\Provider.sql" />
+    <Build Include="Tables\Field.sql" />
   </ItemGroup>
 </Project>

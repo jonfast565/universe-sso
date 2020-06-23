@@ -15,21 +15,21 @@ namespace UniverseSso.Entities
         {
         }
 
-        public virtual DbSet<LoginField> LoginField { get; set; }
-        public virtual DbSet<LoginProvider> LoginProvider { get; set; }
+        public virtual DbSet<Field> Field { get; set; }
+        public virtual DbSet<Provider> Provider { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=LoginDb;Trusted_Connection=True");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<LoginField>(entity =>
+            modelBuilder.Entity<Field>(entity =>
             {
                 entity.Property(e => e.CreatedBy)
                     .IsRequired()
@@ -48,6 +48,10 @@ namespace UniverseSso.Entities
                     .IsRequired()
                     .HasMaxLength(255);
 
+                entity.Property(e => e.PageType)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.UpdatedBy)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -57,14 +61,14 @@ namespace UniverseSso.Entities
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.HasOne(d => d.LoginProvider)
-                    .WithMany(p => p.LoginField)
-                    .HasForeignKey(d => d.LoginProviderId)
+                entity.HasOne(d => d.Provider)
+                    .WithMany(p => p.Field)
+                    .HasForeignKey(d => d.ProviderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__LoginFiel__Login__3C69FB99");
+                    .HasConstraintName("FK__Field__ProviderI__2F10007B");
             });
 
-            modelBuilder.Entity<LoginProvider>(entity =>
+            modelBuilder.Entity<Provider>(entity =>
             {
                 entity.HasIndex(e => e.ProviderName)
                     .HasName("UQ_ProviderName")

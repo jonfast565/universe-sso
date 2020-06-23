@@ -28,11 +28,11 @@ namespace UniverseSso.Backend.Controllers
         [HttpGet]
         public async Task<IEnumerable<LoginFieldModel>> GetLoginFields(CancellationToken ct, string providerName)
         {
-            var provider = await _dbContext.LoginProvider
+            var provider = await _dbContext.Provider
                 .FirstAsync(x => x.ProviderName == providerName, ct);
 
-            var providerFields = await _dbContext.LoginField
-                .Where(x => x.LoginProviderId == provider.LoginProviderId)
+            var providerFields = await _dbContext.Field
+                .Where(x => x.ProviderId == provider.ProviderId)
                 .ToListAsync(ct);
 
             var loginFields = providerFields.Select(x => new LoginFieldModel
@@ -46,9 +46,13 @@ namespace UniverseSso.Backend.Controllers
         }
 
         [HttpPost]
-        public async Task PostLogin(CancellationToken ct, Dictionary<string, object> loginFields)
+        public async Task PostLogin(CancellationToken ct, string providerName, Dictionary<string, string> loginFields)
         {
+            var providerFields = await _dbContext.Field
+                .Where(x => x.Provider.ProviderName == providerName)
+                .ToListAsync(ct);
 
+            // TODO: Add login logic
         }
     }
 }

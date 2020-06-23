@@ -53,3 +53,5 @@ C:\Users\jfast\Desktop\Repos\universe-sso\backend\bin\Debug\netcoreapp3.1\runtim
 C:\Users\jfast\Desktop\Repos\universe-sso\backend\bin\Debug\netcoreapp3.1\UniverseSso.Entities.dll
 C:\Users\jfast\Desktop\Repos\universe-sso\backend\bin\Debug\netcoreapp3.1\UniverseSso.Entities.pdb
 C:\Users\jfast\Desktop\Repos\universe-sso\backend\obj\Debug\netcoreapp3.1\UniverseSso.Backend.csproj.CopyComplete
+C:\Users\jfast\Desktop\Repos\universe-sso\backend\bin\Debug\netcoreapp3.1\UniverseSso.Models.dll
+C:\Users\jfast\Desktop\Repos\universe-sso\backend\bin\Debug\netcoreapp3.1\UniverseSso.Models.pdb

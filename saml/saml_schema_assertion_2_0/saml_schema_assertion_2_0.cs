@@ -40,7 +40,7 @@ namespace ds
 
 
 		public CanonicalizationMethodType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -104,7 +104,7 @@ namespace ds
 
 
 		public CryptoBinary(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -127,7 +127,7 @@ namespace ds
 
 
 		public DSAKeyValueType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -335,7 +335,7 @@ namespace ds
 
 
 		public DigestMethodType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -399,7 +399,7 @@ namespace ds
 
 
 		public DigestValueType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -422,7 +422,7 @@ namespace ds
 
 
 		public HMACOutputLengthType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -445,7 +445,7 @@ namespace ds
 
 
 		public KeyInfoType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -684,7 +684,7 @@ namespace ds
 
 
 		public KeyValueType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -780,7 +780,7 @@ namespace ds
 
 
 		public ManifestType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -856,7 +856,7 @@ namespace ds
 
 
 		public ObjectType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -956,7 +956,7 @@ namespace ds
 
 
 		public PGPDataType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1039,7 +1039,7 @@ namespace ds
 
 
 		public RSAKeyValueType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1122,7 +1122,7 @@ namespace ds
 
 
 		public ReferenceType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1284,7 +1284,7 @@ namespace ds
 
 
 		public RetrievalMethodType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1378,7 +1378,7 @@ namespace ds
 
 
 		public SPKIDataType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1436,7 +1436,7 @@ namespace ds
 
 
 		public SignatureMethodType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1525,7 +1525,7 @@ namespace ds
 
 
 		public SignaturePropertiesType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1601,7 +1601,7 @@ namespace ds
 
 
 		public SignaturePropertyType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1683,7 +1683,7 @@ namespace ds
 
 
 		public SignatureType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1834,7 +1834,7 @@ namespace ds
 
 
 		public SignatureValueType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -1885,7 +1885,7 @@ namespace ds
 
 
 		public SignedInfoType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2011,7 +2011,7 @@ namespace ds
 
 
 		public TransformType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2100,7 +2100,7 @@ namespace ds
 
 
 		public TransformsType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2158,7 +2158,7 @@ namespace ds
 
 
 		public X509DataType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2316,7 +2316,7 @@ namespace ds
 
 
 		public X509IssuerSerialType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2399,7 +2399,7 @@ namespace ds
 
 
 		public DigestValueTypeType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2445,7 +2445,7 @@ namespace ds
 
 
 		public CryptoBinaryType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2491,7 +2491,7 @@ namespace ds
 
 
 		public HMACOutputLengthTypeType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2543,7 +2543,7 @@ namespace xenc
 
 
 		public AgreementMethodType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2682,7 +2682,7 @@ namespace xenc
 
 
 		public CipherDataType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2765,7 +2765,7 @@ namespace xenc
 
 
 		public CipherReferenceType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2841,7 +2841,7 @@ namespace xenc
 
 
 		public EncryptedDataType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2874,7 +2874,7 @@ namespace xenc
 
 
 		public EncryptedKeyType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -2975,7 +2975,7 @@ namespace xenc
 
 
 		public EncryptedType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3180,7 +3180,7 @@ namespace xenc
 
 
 		public EncryptionMethodType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3294,7 +3294,7 @@ namespace xenc
 
 
 		public EncryptionPropertiesType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3370,7 +3370,7 @@ namespace xenc
 
 
 		public EncryptionPropertyType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3452,7 +3452,7 @@ namespace xenc
 
 
 		public KeySizeType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3475,7 +3475,7 @@ namespace xenc
 
 
 		public ReferenceType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3526,7 +3526,7 @@ namespace xenc
 
 
 		public TransformsType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3584,7 +3584,7 @@ namespace xenc
 
 
 		public KeySizeTypeType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3636,7 +3636,7 @@ namespace xs
 
 
 		public ENTITIES(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3659,7 +3659,7 @@ namespace xs
 
 
 		public ENTITY(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3682,7 +3682,7 @@ namespace xs
 
 
 		public ID(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3705,7 +3705,7 @@ namespace xs
 
 
 		public IDREF(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3728,7 +3728,7 @@ namespace xs
 
 
 		public IDREFS(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3751,7 +3751,7 @@ namespace xs
 
 
 		public NCName(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3774,7 +3774,7 @@ namespace xs
 
 
 		public NMTOKEN(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3797,7 +3797,7 @@ namespace xs
 
 
 		public NMTOKENS(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3820,7 +3820,7 @@ namespace xs
 
 
 		public NOTATION(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3843,7 +3843,7 @@ namespace xs
 
 
 		public Name(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3866,7 +3866,7 @@ namespace xs
 
 
 		public QName(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3889,7 +3889,7 @@ namespace xs
 
 
 		public anySimpleType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3912,7 +3912,7 @@ namespace xs
 
 
 		public anyType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3958,7 +3958,7 @@ namespace xs
 
 
 		public anyURI(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -3981,7 +3981,7 @@ namespace xs
 
 
 		public base64Binary(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4004,7 +4004,7 @@ namespace xs
 
 
 		public boolean(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4027,7 +4027,7 @@ namespace xs
 
 
 		public byte2(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4050,7 +4050,7 @@ namespace xs
 
 
 		public date(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4073,7 +4073,7 @@ namespace xs
 
 
 		public dateTime(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4096,7 +4096,7 @@ namespace xs
 
 
 		public decimal2(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4119,7 +4119,7 @@ namespace xs
 
 
 		public double2(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4142,7 +4142,7 @@ namespace xs
 
 
 		public duration(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4165,7 +4165,7 @@ namespace xs
 
 
 		public float2(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4188,7 +4188,7 @@ namespace xs
 
 
 		public gDay(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4211,7 +4211,7 @@ namespace xs
 
 
 		public gMonth(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4234,7 +4234,7 @@ namespace xs
 
 
 		public gMonthDay(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4257,7 +4257,7 @@ namespace xs
 
 
 		public gYear(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4280,7 +4280,7 @@ namespace xs
 
 
 		public gYearMonth(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4303,7 +4303,7 @@ namespace xs
 
 
 		public hexBinary(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4326,7 +4326,7 @@ namespace xs
 
 
 		public int2(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4349,7 +4349,7 @@ namespace xs
 
 
 		public integer(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4372,7 +4372,7 @@ namespace xs
 
 
 		public language(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4395,7 +4395,7 @@ namespace xs
 
 
 		public long2(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4418,7 +4418,7 @@ namespace xs
 
 
 		public negativeInteger(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4441,7 +4441,7 @@ namespace xs
 
 
 		public nonNegativeInteger(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4464,7 +4464,7 @@ namespace xs
 
 
 		public nonPositiveInteger(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4487,7 +4487,7 @@ namespace xs
 
 
 		public normalizedString(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4510,7 +4510,7 @@ namespace xs
 
 
 		public positiveInteger(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4533,7 +4533,7 @@ namespace xs
 
 
 		public short2(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4556,7 +4556,7 @@ namespace xs
 
 
 		public string2(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4579,7 +4579,7 @@ namespace xs
 
 
 		public time(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4602,7 +4602,7 @@ namespace xs
 
 
 		public token(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4625,7 +4625,7 @@ namespace xs
 
 
 		public unsignedByte(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4648,7 +4648,7 @@ namespace xs
 
 
 		public unsignedInt(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4671,7 +4671,7 @@ namespace xs
 
 
 		public unsignedLong(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4694,7 +4694,7 @@ namespace xs
 
 
 		public unsignedShort(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4717,7 +4717,7 @@ namespace xs
 
 
 		public stringType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4763,7 +4763,7 @@ namespace xs
 
 
 		public NCNameType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4809,7 +4809,7 @@ namespace xs
 
 
 		public anyURIType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4855,7 +4855,7 @@ namespace xs
 
 
 		public base64BinaryType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4901,7 +4901,7 @@ namespace xs
 
 
 		public integerType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -4953,7 +4953,7 @@ namespace saml
 
 
 		public ActionType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -5004,7 +5004,7 @@ namespace saml
 
 
 		public AdviceType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -5137,7 +5137,7 @@ namespace saml
 
 
 		public AssertionType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -5449,7 +5449,7 @@ namespace saml
 
 
 		public AttributeStatementType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -5532,7 +5532,7 @@ namespace saml
 
 
 		public AttributeType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -5644,7 +5644,7 @@ namespace saml
 
 
 		public AudienceRestrictionType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -5702,7 +5702,7 @@ namespace saml
 
 
 		public AuthnContextType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -5835,7 +5835,7 @@ namespace saml
 
 
 		public AuthnStatementType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -5972,7 +5972,7 @@ namespace saml
 
 
 		public AuthzDecisionStatementType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6108,7 +6108,7 @@ namespace saml
 
 
 		public BaseIDAbstractType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6177,7 +6177,7 @@ namespace saml
 
 
 		public ConditionAbstractType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6210,7 +6210,7 @@ namespace saml
 
 
 		public ConditionsType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6387,7 +6387,7 @@ namespace saml
 		};
 
 		public DecisionType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6410,7 +6410,7 @@ namespace saml
 
 
 		public EncryptedElementType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6493,7 +6493,7 @@ namespace saml
 
 
 		public EvidenceType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6626,7 +6626,7 @@ namespace saml
 
 
 		public KeyInfoConfirmationDataType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6774,7 +6774,7 @@ namespace saml
 
 
 		public NameIDType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6879,7 +6879,7 @@ namespace saml
 
 
 		public OneTimeUseType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6912,7 +6912,7 @@ namespace saml
 
 
 		public ProxyRestrictionType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -6988,7 +6988,7 @@ namespace saml
 
 
 		public StatementAbstractType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -7021,7 +7021,7 @@ namespace saml
 
 
 		public SubjectConfirmationDataType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -7157,7 +7157,7 @@ namespace saml
 
 
 		public SubjectConfirmationType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -7308,7 +7308,7 @@ namespace saml
 
 
 		public SubjectLocalityType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -7377,7 +7377,7 @@ namespace saml
 
 
 		public SubjectType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -7664,7 +7664,7 @@ namespace saml
 
 
 		public saml_schema_assertion_2_02(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		
@@ -9322,7 +9322,7 @@ namespace saml
 
 
 		public ReferenceListType(System.Xml.XmlNode init) : base(init)
- 		{
+		{
 			instantiateMembers();
 		} 
 		

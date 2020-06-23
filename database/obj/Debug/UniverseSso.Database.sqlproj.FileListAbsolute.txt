@@ -3,3 +3,4 @@ C:\Users\jfast\Desktop\Repos\universe-sso\database\bin\Debug\UniverseSso.Databas
 C:\Users\jfast\Desktop\Repos\universe-sso\database\bin\Debug\UniverseSso.Database.pdb
 C:\Users\jfast\Desktop\Repos\universe-sso\database\obj\Debug\UniverseSso.Database.dll
 C:\Users\jfast\Desktop\Repos\universe-sso\database\obj\Debug\UniverseSso.Database.pdb
+C:\Users\jfast\Desktop\Repos\universe-sso\database\obj\Debug\UniverseSso.Database.sqlprojAssemblyReference.cache

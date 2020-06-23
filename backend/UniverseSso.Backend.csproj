@@ -9,5 +9,9 @@
     <ProjectReference Include="..\UniverseSso.Models\UniverseSso.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 
 </Project>
