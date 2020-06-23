@@ -1,0 +1,39 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 16
+VisualStudioVersion = 16.0.28922.388
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "saml_schema_authn_context_sslcert_2_0Test", "saml_schema_authn_context_sslcert_2_0Test.csproj", "{94A5BBB9-6850-194F-8A4F-B8439DF8B458}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "saml_schema_authn_context_sslcert_2_0", "..\saml_schema_authn_context_sslcert_2_0\saml_schema_authn_context_sslcert_2_0.csproj", "{C7AB0122-9419-9E4C-B7C4-1303098C0834}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altova", "..\Altova\Altova.csproj", "{D43E6C54-2DF5-454E-9566-DFFE2F3A6946}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltovaXML", "..\AltovaXML\AltovaXML.csproj", "{03AAA791-EC2D-4A90-ABBF-45337E52DFD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94A5BBB9-6850-194F-8A4F-B8439DF8B458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A5BBB9-6850-194F-8A4F-B8439DF8B458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A5BBB9-6850-194F-8A4F-B8439DF8B458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A5BBB9-6850-194F-8A4F-B8439DF8B458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7AB0122-9419-9E4C-B7C4-1303098C0834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7AB0122-9419-9E4C-B7C4-1303098C0834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7AB0122-9419-9E4C-B7C4-1303098C0834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7AB0122-9419-9E4C-B7C4-1303098C0834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D43E6C54-2DF5-454E-9566-DFFE2F3A6946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D43E6C54-2DF5-454E-9566-DFFE2F3A6946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D43E6C54-2DF5-454E-9566-DFFE2F3A6946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D43E6C54-2DF5-454E-9566-DFFE2F3A6946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03AAA791-EC2D-4A90-ABBF-45337E52DFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03AAA791-EC2D-4A90-ABBF-45337E52DFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03AAA791-EC2D-4A90-ABBF-45337E52DFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03AAA791-EC2D-4A90-ABBF-45337E52DFD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
