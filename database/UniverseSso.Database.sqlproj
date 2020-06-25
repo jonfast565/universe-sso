@@ -61,5 +61,6 @@
   <ItemGroup>
     <Build Include="Tables\Provider.sql" />
     <Build Include="Tables\Field.sql" />
+    <Build Include="Tables\AuthenticationStrategy.sql" />
   </ItemGroup>
 </Project>
