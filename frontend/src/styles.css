@@ -1,1 +1,87 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('./assets/OpenSans-Regular.ttf');
+}
+
+body {
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+/* bootstrap overrides */
+.btn {
+    transition: 0.3s;
+}
+
+/* custom classes */
+.transition {
+    opacity: 0.6;
+    transition: 1.0s;
+}
+
+.transition :hover {
+    background-color: lightgreen;
+    opacity: 1.0;
+}
+
+.shadow-small {
+    box-shadow: 2px 3px #EFEFEF;
+}
+
+.shadow {
+    box-shadow: 5px 10px #EFEFEF;
+}
+
+.spacer-bottom-2 {
+    margin-bottom: 2px;
+}
+
+.spacer-bottom-5 {
+    margin-bottom: 5px;
+}
+
+.spacer-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.spacer-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.spacer-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.spacer-bottom-50 {
+    margin-bottom: 50px;
+}
+
+.spacer-top-2 {
+    margin-top: 2px;
+}
+
+.spacer-top-5 {
+    margin-top: 5px;
+}
+
+.spacer-top-10 {
+    margin-top: 10px;
+}
+
+.spacer-top-20 {
+    margin-top: 20px;
+}
+
+.spacer-top-30 {
+    margin-top: 30px;
+}
+
+.spacer-top-50 {
+    margin-top: 50px;
+}
+
+.spacer-top-100 {
+    margin-top: 100px;
+}
