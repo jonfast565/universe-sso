@@ -21,8 +21,8 @@ import {
     LoginComponent
 } from './login/login.component';
 import {
-    RecoveryComponent
-} from './recovery/recovery.component';
+    RecoveryOptionsComponent
+} from './recovery-options/recovery-options.component';
 import {
     PageNotFoundComponent
 } from './page-not-found/page-not-found.component';
@@ -38,7 +38,7 @@ import {
         AppComponent,
         SelectProviderComponent,
         LoginComponent,
-        RecoveryComponent,
+        RecoveryOptionsComponent,
         PageNotFoundComponent,
         ResetCredentialComponent,
         TwoFactorComponent

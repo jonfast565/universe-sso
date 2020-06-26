@@ -31,11 +31,8 @@ export class SelectProviderComponent implements OnInit {
     }
 
     private handleProviderRedirect(router: Router) {
-        this.route.queryParamMap.subscribe(params => {
-            let unwrappedParams = {
-                ...params
-            };
-            let provider = unwrappedParams['provider'];
+        this.route.queryParams.subscribe(params => {
+            let provider = params['provider'];
             if (provider) {
                 this.gotoLogin();
             }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UniverseSso.Models.Implementation
 {
-    public class RegistrationReasons
+    class ProviderViewModel
     {
     }
 }
