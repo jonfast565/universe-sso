@@ -16,6 +16,10 @@ body {
 }
 
 /* custom classes */
+.max-window-width {
+    max-width: 550px;
+}
+
 .clickable {
     cursor: pointer;
 }
