@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="spacer-top-10">
-                            <button class="btn btn-primary" (click)="gotoLogin()">Select</button>
+                            <button class="btn btn-primary" [disabled]="providerSelected" (click)="gotoLogin()">Select</button>
                         </div>
                     </form>
                 </div>

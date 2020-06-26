@@ -12,7 +12,7 @@ import {
     Observable
 } from 'rxjs';
 
-const navigationExtras : NavigationExtras = {
+const navigationExtras: NavigationExtras = {
     queryParamsHandling: 'preserve',
     preserveFragment: true
 };
@@ -32,7 +32,9 @@ export class SelectProviderComponent implements OnInit {
 
     private handleProviderRedirect(router: Router) {
         this.route.queryParamMap.subscribe(params => {
-            let unwrappedParams = { ...params };
+            let unwrappedParams = {
+                ...params
+            };
             let provider = unwrappedParams['provider'];
             if (provider) {
                 this.gotoLogin();
@@ -44,5 +46,9 @@ export class SelectProviderComponent implements OnInit {
 
     public gotoLogin() {
         this.router.navigate(['login'], navigationExtras);
+    }
+
+    public providerSelected() {
+        return true;
     }
 }
