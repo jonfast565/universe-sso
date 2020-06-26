@@ -12,6 +12,11 @@ import {
     Observable
 } from 'rxjs';
 
+const navigationExtras : NavigationExtras = {
+    queryParamsHandling: 'preserve',
+    preserveFragment: true
+};
+
 @Component({
     selector: 'app-select-provider',
     templateUrl: './select-provider.component.html',
@@ -22,19 +27,22 @@ export class SelectProviderComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router) {
-        let navigationExtras: NavigationExtras = {
-            queryParamsHandling: 'preserve',
-            preserveFragment: true
-        };
-        let provider = this.route.snapshot.paramMap.get("provider");
-        if (provider) {
-            router.navigate(['login'], navigationExtras);
-        }
+        this.handleProviderRedirect(router);
+    }
+
+    private handleProviderRedirect(router: Router) {
+        this.route.queryParamMap.subscribe(params => {
+            let unwrappedParams = { ...params };
+            let provider = unwrappedParams['provider'];
+            if (provider) {
+                this.gotoLogin();
+            }
+        });
     }
 
     ngOnInit(): void {}
 
-    gotoLogin() {
-        this.router.navigate(['login']);
+    public gotoLogin() {
+        this.router.navigate(['login'], navigationExtras);
     }
 }

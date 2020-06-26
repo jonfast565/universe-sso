@@ -16,7 +16,14 @@ body {
 }
 
 /* custom classes */
+.clickable {
+    cursor: pointer;
+}
+
 .transition {
+    animation-name: myhover;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
     opacity: 0.6;
     transition: 1.0s;
 }
@@ -84,4 +91,8 @@ body {
 
 .spacer-top-100 {
     margin-top: 100px;
+}
+
+.spacer-left-10 {
+    margin-left: 10px;
 }

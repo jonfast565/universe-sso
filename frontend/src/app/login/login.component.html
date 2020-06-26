@@ -3,12 +3,17 @@
         <div class="col-lg-6">
             <div class="card shadow">
                 <div class="card-body">
-                    <h3 class="spacer-bottom-20">Login</h3>
+                    <h3 class="spacer-bottom-10">Login</h3>
                     <form>
                         <label for="username">Username</label>
-                        <input name="username" class="form-control" type="text">
+                        <input name="username" class="form-control form-control-lg spacer-bottom-10" type="text">
                         <label for="password">Password</label>
-                        <input name="password" class="form-control" type="password">
+                        <input name="password" class="form-control form-control-lg spacer-bottom-10" type="password">
+                        <label for="rememberMe" class="form-check-label">Remember Me</label>
+                        <input name="rememberMe" class="form-check-input spacer-left-10 spacer-bottom-10" type="checkbox">
+                        <div class="spacer-top-10">
+                            <button class="btn btn-primary" (click)="login()">Login</button>
+                        </div>
                     </form>
                 </div>
             </div>
