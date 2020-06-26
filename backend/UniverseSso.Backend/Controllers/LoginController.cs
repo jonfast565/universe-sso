@@ -9,11 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using UniverseSso.Entities;
 using UniverseSso.Models;
+using UniverseSso.Models.Implementation;
 
 namespace UniverseSso.Backend.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
         private readonly LoginDbContext _dbContext;
@@ -26,8 +27,30 @@ namespace UniverseSso.Backend.Controllers
         }
 
         [HttpGet]
+        [Route("providers")]
+        public async Task<IEnumerable<ProviderViewModel>> GetProviders(CancellationToken ct)
+        {
+            var provider = await _dbContext.Provider
+                .Where(x => x.Enabled)
+                .ToListAsync(ct);
+
+            return provider.Select(x => new ProviderViewModel
+            {
+                Name = x.ProviderName,
+                Logo = x.ProviderLogo,
+                Background = x.ProviderBackground
+            });
+        }
+
+        [HttpGet]
+        [Route("fields")]
         public async Task<IEnumerable<LoginFieldModel>> GetLoginFields(CancellationToken ct, string providerName)
         {
+            if (string.IsNullOrEmpty(providerName))
+            {
+                return new List<LoginFieldModel>();
+            }
+
             var provider = await _dbContext.Provider
                 .FirstAsync(x => x.ProviderName == providerName, ct);
 
@@ -46,6 +69,7 @@ namespace UniverseSso.Backend.Controllers
         }
 
         [HttpPost]
+        [Route("login")]
         public async Task PostLogin(CancellationToken ct, string providerName, Dictionary<string, string> loginFields)
         {
             var providerFields = await _dbContext.Field

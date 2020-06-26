@@ -4,7 +4,10 @@ using System.Text;
 
 namespace UniverseSso.Models.Implementation
 {
-    class ProviderViewModel
+    public class ProviderViewModel
     {
+        public string Name { get; set; }
+        public byte[] Background { get; set; }
+        public byte[] Logo { get; set; }
     }
 }
