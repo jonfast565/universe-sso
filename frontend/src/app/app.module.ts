@@ -7,7 +7,12 @@ import {
 import {
     FormsModule
 } from '@angular/forms';
-
+import {
+    HttpClientModule
+} from '@angular/common/http';
+import {
+    BrowserAnimationsModule
+} from '@angular/platform-browser/animations';
 import {
     AppRoutingModule
 } from './app-routing.module';
@@ -32,6 +37,12 @@ import {
 import {
     TwoFactorComponent
 } from './two-factor/two-factor.component';
+import {
+    SafeHtmlPipe
+} from './pipes/safe-html';
+import {
+    LoaderComponent
+} from './loader/loader.component';
 
 @NgModule({
     declarations: [
@@ -41,12 +52,16 @@ import {
         RecoveryOptionsComponent,
         PageNotFoundComponent,
         ResetCredentialComponent,
-        TwoFactorComponent
+        TwoFactorComponent,
+        SafeHtmlPipe,
+        LoaderComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

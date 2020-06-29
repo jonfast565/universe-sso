@@ -37,8 +37,29 @@ namespace UniverseSso.Backend.Controllers
             return provider.Select(x => new ProviderViewModel
             {
                 Name = x.ProviderName,
-                Logo = x.ProviderLogo,
-                Background = x.ProviderBackground
+                Logo = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderLogo)}",
+                Background = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderBackground)}"
+            });
+        }
+
+        [HttpGet]
+        [Route("provider")]
+        public async Task<IEnumerable<ProviderViewModel>> GetProvider(CancellationToken ct, string providerName)
+        {
+            if (string.IsNullOrEmpty(providerName))
+            {
+                return new List<ProviderViewModel>();
+            }
+
+            var provider = await _dbContext.Provider
+                .Where(x => x.Enabled && x.ProviderName == providerName)
+                .ToListAsync(ct);
+
+            return provider.Select(x => new ProviderViewModel
+            {
+                Name = x.ProviderName,
+                Logo = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderLogo)}",
+                Background = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderBackground)}"
             });
         }
 

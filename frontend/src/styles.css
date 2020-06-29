@@ -20,21 +20,26 @@ body {
     max-width: 550px;
 }
 
+.centered {
+    align-content: center;
+    vertical-align: middle;
+}
+
 .clickable {
     cursor: pointer;
 }
 
 .transition {
-    animation-name: myhover;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    opacity: 0.6;
-    transition: 1.0s;
+    background-color: white;
+    transition: 0.5s;
 }
 
-.transition :hover {
+.transition:hover {
     background-color: lightgreen;
-    opacity: 1.0;
+}
+
+.selected {
+    background-color: lightgreen;
 }
 
 .shadow-small {
