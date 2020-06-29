@@ -8,7 +8,7 @@ namespace UniverseSso.Models
     public class LoginFieldModel
     {
         public string FieldName { get; set; }
-        public LoginFieldType FieldType { get; set; }
+        public string FieldType { get; set; }
         public string OptionalFieldValues { get; set; }
     }
 }

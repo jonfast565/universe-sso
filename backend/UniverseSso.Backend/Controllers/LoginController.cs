@@ -35,8 +35,7 @@ namespace UniverseSso.Backend.Controllers
                 .Select(x => new ProviderViewModelSlim
             {
                 Name = x.ProviderName,
-                Logo = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderLogo)}",
-                // Background = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderBackground)}"
+                Logo = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderLogo)}"
             }).ToListAsync();
 
             return providers;
@@ -64,24 +63,30 @@ namespace UniverseSso.Backend.Controllers
 
         [HttpGet]
         [Route("fields")]
-        public async Task<IEnumerable<LoginFieldModel>> GetLoginFields(CancellationToken ct, string providerName)
+        public async Task<IEnumerable<LoginFieldModel>> GetFields(CancellationToken ct, string providerName, string pageType)
         {
             if (string.IsNullOrEmpty(providerName))
             {
-                return new List<LoginFieldModel>();
+                throw new Exception($"Provider {providerName} not found.");
+            }
+
+            if (string.IsNullOrEmpty(pageType))
+            {
+                throw new Exception($"Page type {pageType} not found.");
             }
 
             var provider = await _dbContext.Provider
                 .FirstAsync(x => x.ProviderName == providerName, ct);
 
             var providerFields = await _dbContext.Field
-                .Where(x => x.ProviderId == provider.ProviderId)
+                .Where(x => x.ProviderId == provider.ProviderId
+                && x.PageType == pageType)
                 .ToListAsync(ct);
 
             var loginFields = providerFields.Select(x => new LoginFieldModel
             {
                 FieldName = x.FieldName,
-                // FieldType = x.FieldType,
+                FieldType = x.FieldType,
                 OptionalFieldValues = x.OptionalFieldValues,
             });
 
