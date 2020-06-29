@@ -9,6 +9,9 @@ import {
     Router,
     ActivatedRoute
 } from '@angular/router';
+import {
+    ProviderViewModel
+} from '../models/provider';
 
 @Component({
     selector: 'app-login',
@@ -17,7 +20,10 @@ import {
 })
 export class LoginComponent implements OnInit {
 
-    public provider: string = null;
+    public providerName: string = null;
+    public provider: ProviderViewModel = null;
+    public isLoading: boolean = false;
+    public isLoggingIn: boolean = false;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -27,11 +33,11 @@ export class LoginComponent implements OnInit {
 
     handleSelectProviderRedirect(router: Router) {
         this.route.queryParams.subscribe(params => {
-            let provider = params['provider'];
-            if (!provider) {
+            let providerName = params['provider'];
+            if (!providerName) {
                 this.gotoProviderSelection();
             } else {
-                this.provider = provider;
+                this.providerName = providerName;
             }
         });
     }
@@ -46,12 +52,16 @@ export class LoginComponent implements OnInit {
     }
 
     loadProvider() {
-        this.providerApi.getProvider(this.provider).subscribe(provider => {
-
-        });
+        this.isLoading = true;
+        this.providerApi.getProvider(this.providerName)
+            .subscribe(provider => {
+                this.provider = provider;
+                this.isLoading = false;
+            });
     }
 
     public login() {
-
+        this.isLoggingIn = true;
+        setTimeout(() => this.isLoggingIn = false, 2000 , this)
     }
 }

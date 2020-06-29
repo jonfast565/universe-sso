@@ -17,6 +17,7 @@ import {
 import {
     ProviderViewModelSlim
 } from "../models/providerviewmodelslim";
+import { FieldModel } from '../models/field';
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,7 @@ import {
 export class ProviderApiService {
     private providersEndpoint = "api/login/providers";
     private providerEndpoint = "api/login/provider";
+    private fieldsEndpoint = "api/login/fields";
 
     constructor(@Inject(HttpClient) private http: HttpClient) {}
 
@@ -36,9 +38,18 @@ export class ProviderApiService {
     }
 
     getProvider(providerName: string): Observable < ProviderViewModel > {
-        const params = new HttpParams();
-        params.set('providerName', providerName);
+        var params = new HttpParams();
+        params = params.append('providerName', providerName);
         const response = this.http.get < ProviderViewModel > (this.providerEndpoint, {
+            params
+        });
+        return response;
+    }
+
+    getFields(providerName: string): Observable < FieldModel > {
+        var params = new HttpParams();
+        params = params.append('providerName', providerName);
+        const response = this.http.get < FieldModel > (this.fieldsEndpoint, {
             params
         });
         return response;

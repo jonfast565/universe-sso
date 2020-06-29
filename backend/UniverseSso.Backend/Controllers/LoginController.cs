@@ -44,23 +44,22 @@ namespace UniverseSso.Backend.Controllers
 
         [HttpGet]
         [Route("provider")]
-        public async Task<IEnumerable<ProviderViewModel>> GetProvider(CancellationToken ct, string providerName)
+        public async Task<ProviderViewModel> GetProvider(CancellationToken ct, string providerName)
         {
             if (string.IsNullOrEmpty(providerName))
             {
-                return new List<ProviderViewModel>();
+                throw new Exception($"Provider {providerName} not found.");
             }
 
             var provider = await _dbContext.Provider
-                .Where(x => x.Enabled && x.ProviderName == providerName)
-                .ToListAsync(ct);
+                .FirstAsync(x => x.Enabled && x.ProviderName == providerName, ct);
 
-            return provider.Select(x => new ProviderViewModel
+            return new ProviderViewModel
             {
-                Name = x.ProviderName,
-                Logo = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderLogo)}",
-                Background = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderBackground)}"
-            });
+                Name = provider.ProviderName,
+                Logo = $"data:image/png;base64, {Convert.ToBase64String(provider.ProviderLogo)}",
+                Background = $"data:image/png;base64, {Convert.ToBase64String(provider.ProviderBackground)}"
+            };
         }
 
         [HttpGet]
