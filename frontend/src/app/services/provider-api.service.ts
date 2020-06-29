@@ -14,16 +14,31 @@ import {
     ProviderViewModel
 } from "../models/provider";
 
+import {
+    ProviderViewModelSlim
+} from "../models/providerviewmodelslim";
+
 @Injectable({
     providedIn: 'root'
 })
 export class ProviderApiService {
-    private providerEndpoint = "api/login/providers"
+    private providersEndpoint = "api/login/providers";
+    private providerEndpoint = "api/login/provider";
+
     constructor(@Inject(HttpClient) private http: HttpClient) {}
 
-    getProviders(): Observable < ProviderViewModel[] > {
+    getProviders(): Observable < ProviderViewModelSlim[] > {
         const params = new HttpParams();
-        const response = this.http.get < ProviderViewModel[] > (this.providerEndpoint, {
+        const response = this.http.get < ProviderViewModelSlim[] > (this.providersEndpoint, {
+            params
+        });
+        return response;
+    }
+
+    getProvider(providerName: string): Observable < ProviderViewModel > {
+        const params = new HttpParams();
+        params.set('providerName', providerName);
+        const response = this.http.get < ProviderViewModel > (this.providerEndpoint, {
             params
         });
         return response;

@@ -10,8 +10,15 @@ import {
 import {
     Observable
 } from 'rxjs';
-import { ProviderApiService } from '../services/provider-api.service';
-import { ProviderViewModel } from '../models/provider';
+import {
+    ProviderApiService
+} from '../services/provider-api.service';
+import {
+    ProviderViewModel
+} from '../models/provider';
+import {
+    ProviderViewModelSlim
+} from '../models/providerviewmodelslim';
 
 @Component({
     selector: 'app-select-provider',
@@ -19,7 +26,7 @@ import { ProviderViewModel } from '../models/provider';
     styleUrls: ['./select-provider.component.css'],
 })
 export class SelectProviderComponent implements OnInit {
-    public providers: ProviderViewModel[] = [];
+    public providers: ProviderViewModelSlim[] = [];
     public isLoading: boolean = false;
 
     constructor(
@@ -41,13 +48,13 @@ export class SelectProviderComponent implements OnInit {
     loadProviders(): void {
         this.isLoading = true;
         this.providerApi.getProviders().subscribe({
-            next: providers => { 
+            next: providers => {
                 this.isLoading = false;
-                this.providers = providers; 
+                this.providers = providers;
             },
-            error: error => { 
+            error: error => {
                 this.isLoading = false;
-                console.log(error); 
+                console.log(error);
             }
         });
     }

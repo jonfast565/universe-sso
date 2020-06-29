@@ -1,6 +1,5 @@
-export class ProviderViewModel {
+export class ProviderViewModelSlim {
     public name: String
-    public background: String
     public logo: String
     public selected: boolean = false;
 }
