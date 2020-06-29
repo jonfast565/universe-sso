@@ -46,10 +46,11 @@ export class ProviderApiService {
         return response;
     }
 
-    getFields(providerName: string): Observable < FieldModel > {
+    getFields(providerName: string, pageType: string): Observable < FieldModel[] > {
         var params = new HttpParams();
         params = params.append('providerName', providerName);
-        const response = this.http.get < FieldModel > (this.fieldsEndpoint, {
+        params = params.append('pageType', pageType);
+        const response = this.http.get < FieldModel[] > (this.fieldsEndpoint, {
             params
         });
         return response;

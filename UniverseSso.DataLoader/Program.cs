@@ -42,7 +42,8 @@ namespace UniverseSso.DataLoader
                 FieldName = "Participant ID",
                 FieldType = "Text",
                 PageType = "Login",
-                Pattern = "[0-9]+"
+                Pattern = "[0-9]+",
+                Order = 1
             });
 
             await loginDatabase.Field.AddAsync(new Field
@@ -51,7 +52,8 @@ namespace UniverseSso.DataLoader
                 FieldName = "Username",
                 FieldType = "Text",
                 PageType = "Login",
-                Pattern = null
+                Pattern = null,
+                Order = 2
             });
 
             await loginDatabase.Field.AddAsync(new Field
@@ -60,7 +62,8 @@ namespace UniverseSso.DataLoader
                 FieldName = "Password",
                 FieldType = "Password",
                 PageType = "Login",
-                Pattern = null
+                Pattern = null,
+                Order = 3
             });
 
             await loginDatabase.Field.AddAsync(new Field
@@ -69,7 +72,8 @@ namespace UniverseSso.DataLoader
                 FieldName = "Email",
                 FieldType = "Text",
                 PageType = "Login",
-                Pattern = null
+                Pattern = null,
+                Order = 1
             });
 
             await loginDatabase.Field.AddAsync(new Field
@@ -78,7 +82,8 @@ namespace UniverseSso.DataLoader
                 FieldName = "Password",
                 FieldType = "Password",
                 PageType = "Login",
-                Pattern = null
+                Pattern = null,
+                Order = 2
             });
 
 

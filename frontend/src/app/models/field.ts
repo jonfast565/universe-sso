@@ -1,3 +1,3 @@
 export class FieldModel {
-    public name: String
+    public name: string
 }

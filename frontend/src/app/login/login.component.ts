@@ -12,6 +12,7 @@ import {
 import {
     ProviderViewModel
 } from '../models/provider';
+import { FieldModel } from '../models/field';
 
 @Component({
     selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
 
     public providerName: string = null;
     public provider: ProviderViewModel = null;
+    public fields: FieldModel[] = null;
     public isLoading: boolean = false;
     public isLoggingIn: boolean = false;
 
@@ -56,7 +58,10 @@ export class LoginComponent implements OnInit {
         this.providerApi.getProvider(this.providerName)
             .subscribe(provider => {
                 this.provider = provider;
-                this.isLoading = false;
+                this.providerApi.getFields(this.provider.name, 'Login').subscribe(fields => {
+                    this.fields = fields;
+                    this.isLoading = false;
+                });
             });
     }
 

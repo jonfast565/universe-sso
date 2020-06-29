@@ -15,6 +15,7 @@ namespace UniverseSso.Entities
         {
         }
 
+        public virtual DbSet<AuthenticationStrategy> AuthenticationStrategy { get; set; }
         public virtual DbSet<Field> Field { get; set; }
         public virtual DbSet<Provider> Provider { get; set; }
 
@@ -22,13 +23,38 @@ namespace UniverseSso.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=LoginDb;Trusted_Connection=True");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AuthenticationStrategy>(entity =>
+            {
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(suser_name())");
+
+                entity.Property(e => e.CreatedDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.StrategyName)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.UpdatedBy)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.UpdatedDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+            });
+
             modelBuilder.Entity<Field>(entity =>
             {
                 entity.Property(e => e.CreatedBy)
@@ -65,7 +91,7 @@ namespace UniverseSso.Entities
                     .WithMany(p => p.Field)
                     .HasForeignKey(d => d.ProviderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Field__ProviderI__2F10007B");
+                    .HasConstraintName("FK__Field__ProviderI__34C8D9D1");
             });
 
             modelBuilder.Entity<Provider>(entity =>

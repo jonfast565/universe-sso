@@ -8,6 +8,7 @@
     [Required] BIT NOT NULL,
     [Pattern] NVARCHAR(MAX) NULL,
     [OptionalFieldValues] NVARCHAR(MAX) NULL,
+    [Order] INT NOT NULL,
     [CreatedDatetime] DATETIME NOT NULL
         DEFAULT GETDATE(),
     [CreatedBy] NVARCHAR(255) NOT NULL

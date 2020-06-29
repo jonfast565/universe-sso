@@ -1,6 +1,6 @@
 export class ProviderViewModel {
-    public name: String
-    public background: String
-    public logo: String
+    public name: string
+    public background: string
+    public logo: string
     public selected: boolean = false;
 }

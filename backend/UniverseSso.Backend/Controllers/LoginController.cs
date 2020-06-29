@@ -36,7 +36,7 @@ namespace UniverseSso.Backend.Controllers
             {
                 Name = x.ProviderName,
                 Logo = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderLogo)}"
-            }).ToListAsync();
+            }).ToListAsync(ct);
 
             return providers;
         }
@@ -81,6 +81,7 @@ namespace UniverseSso.Backend.Controllers
             var providerFields = await _dbContext.Field
                 .Where(x => x.ProviderId == provider.ProviderId
                 && x.PageType == pageType)
+                .OrderBy(x => x.Order)
                 .ToListAsync(ct);
 
             var loginFields = providerFields.Select(x => new LoginFieldModel

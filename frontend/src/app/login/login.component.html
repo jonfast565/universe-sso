@@ -10,12 +10,12 @@
                         <app-loader></app-loader>
                     </div>
                     <div *ngIf="!isLoading">
-                        <h3 class="spacer-bottom-10">Login</h3>
+                        <h3 class="spacer-bottom-10">{{provider.name}} Login</h3>
                         <form>
-                            <label for="username">Username</label>
-                            <input name="username" [disabled]="isLoggingIn" class="form-control form-control-lg spacer-bottom-10" type="text">
-                            <label for="password">Password</label>
-                            <input name="password" [disabled]="isLoggingIn" class="form-control form-control-lg spacer-bottom-10" type="password">
+                            <div *ngFor="let field of fields">
+                                <label for="{{field.fieldName}}">{{field.fieldName}}</label>
+                                <input name="{{field.fieldName}}" [disabled]="isLoggingIn" class="form-control form-control-lg spacer-bottom-10" type="{{field.fieldType}}">
+                            </div>
                             <label for="rememberMe" class="form-check-label">Remember Me</label>
                             <input name="rememberMe" [disabled]="isLoggingIn" class="form-check-input spacer-left-10 spacer-bottom-10" type="checkbox">
                             <div class="spacer-top-10">

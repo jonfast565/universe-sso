@@ -13,6 +13,7 @@ namespace UniverseSso.Entities
         public bool Required { get; set; }
         public string Pattern { get; set; }
         public string OptionalFieldValues { get; set; }
+        public int Order { get; set; }
         public DateTime CreatedDatetime { get; set; }
         public string CreatedBy { get; set; }
         public DateTime UpdatedDatetime { get; set; }
