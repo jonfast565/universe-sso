@@ -9,11 +9,11 @@ import { ResetCredentialComponent } from './reset-credential/reset-credential.co
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'select-provider', component: SelectProviderComponent },
+  { path: 'selectProvider', component: SelectProviderComponent },
   { path: 'recovery', component: RecoveryOptionsComponent },
   { path: '2fa', component: TwoFactorComponent },
-  { path: 'reset-credential', component: ResetCredentialComponent },
-  { path: '', redirectTo: '/select-provider', pathMatch: 'full' },
+  { path: 'resetCredential', component: ResetCredentialComponent },
+  { path: '', redirectTo: '/selectProvider', pathMatch: 'full' },
   // { path: '**', component: FallbackHomepageComponent },
   { path: '**', component: PageNotFoundComponent }
 ];

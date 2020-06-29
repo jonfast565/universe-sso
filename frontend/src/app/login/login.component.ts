@@ -2,7 +2,13 @@ import {
     Component,
     OnInit
 } from '@angular/core';
-import { FadeInOutAnimation } from '../animations/fade-in';
+import {
+    ProviderApiService
+} from '../services/provider-api.service';
+import {
+    Router,
+    ActivatedRoute
+} from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -11,9 +17,27 @@ import { FadeInOutAnimation } from '../animations/fade-in';
 })
 export class LoginComponent implements OnInit {
 
-    constructor() {}
+    constructor(private route: ActivatedRoute,
+        private router: Router,
+        private providerApi: ProviderApiService) {
+            this.handleSelectProviderRedirect(router);
+    }
 
-    ngOnInit(): void {}
+    handleSelectProviderRedirect(router: Router) {
+        this.route.queryParams.subscribe(params => {
+            let provider = params['provider'];
+            if (!provider) {
+                this.gotoProviderSelection();
+            }
+        });
+    }
+    gotoProviderSelection() {
+        this.router.navigate(['selectProvider'], { queryParamsHandling: 'merge' });
+    }
+
+    ngOnInit(): void {
+
+    }
 
     public login() {
 

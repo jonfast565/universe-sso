@@ -13,11 +13,6 @@ import {
 import { ProviderApiService } from '../services/provider-api.service';
 import { ProviderViewModel } from '../models/provider';
 
-const navigationExtras: NavigationExtras = {
-    queryParamsHandling: 'preserve',
-    preserveFragment: true
-};
-
 @Component({
     selector: 'app-select-provider',
     templateUrl: './select-provider.component.html',
@@ -62,7 +57,12 @@ export class SelectProviderComponent implements OnInit {
     }
 
     public gotoLogin() {
-        this.router.navigate(['login?provider=' + this.getSelectedProvider().name], navigationExtras);
+        this.router.navigate(['login'], {
+            queryParams: {
+                provider: this.getSelectedProvider().name
+            },
+            queryParamsHandling: 'merge'
+        });
     }
 
 
