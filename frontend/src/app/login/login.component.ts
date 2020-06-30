@@ -7,12 +7,14 @@ import {
 } from '../services/provider-api.service';
 import {
     Router,
-    ActivatedRoute
+    ActivatedRoute,
+    Event
 } from '@angular/router';
 import {
     ProviderViewModel
 } from '../models/provider';
 import { FieldModel } from '../models/field';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -26,6 +28,8 @@ export class LoginComponent implements OnInit {
     public fields: FieldModel[] = null;
     public isLoading: boolean = false;
     public isLoggingIn: boolean = false;
+    public form : FormGroup = null;
+    public rememberMe : boolean = false;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -43,6 +47,7 @@ export class LoginComponent implements OnInit {
             }
         });
     }
+
     gotoProviderSelection() {
         this.router.navigate(['selectProvider'], {
             queryParamsHandling: 'merge'
@@ -56,17 +61,62 @@ export class LoginComponent implements OnInit {
     loadProvider() {
         this.isLoading = true;
         this.providerApi.getProvider(this.providerName)
-            .subscribe(provider => {
+            .subscribe({ next: provider => {
                 this.provider = provider;
                 this.providerApi.getFields(this.provider.name, 'Login').subscribe(fields => {
                     this.fields = fields;
+                    let fieldMap = {};
+                    this.fields.forEach(field => {
+                        let validators = [];
+                        if (field.required) {
+                            validators.push(Validators.required);
+                        }
+                        if (field.pattern) {
+                            validators.push(Validators.pattern(field.pattern));
+                        }
+                        let formControl = new FormControl('', validators);
+                        fieldMap[field.fieldName] = formControl;
+                    });
+                    this.form = new FormGroup(fieldMap);
                     this.isLoading = false;
                 });
-            });
+            },
+            error: error => {
+                console.log(error)
+                this.isLoading = false;
+            }
+        });
     }
 
-    public login() {
-        this.isLoggingIn = true;
-        setTimeout(() => this.isLoggingIn = false, 2000 , this)
+    onChangeRememberMe(e: { target: { checked: boolean; }; }) {
+        this.rememberMe = e.target.checked;
     }
+
+    public login(form : FormGroup) {
+        // fix loading issues
+        this.isLoggingIn = true;
+        var fields = {};
+
+        // disable fields and push fields
+        this.fields.forEach(field => {
+            form.controls[field.fieldName].disable();
+            fields[field.fieldName] = form.controls[field.fieldName].value;
+        });
+
+        // set remember me
+        fields['RememberMe'] = this.rememberMe;
+
+        // login
+        setTimeout(() => { 
+
+
+
+            // re-enable fields
+            this.fields.forEach(field => {
+                form.controls[field.fieldName].enable();
+            });
+
+            this.isLoggingIn = false; 
+        }, 2000 , this)
+    } 
 }

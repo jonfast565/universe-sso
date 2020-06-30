@@ -1,3 +1,7 @@
 export class FieldModel {
-    public name: string
+    public fieldName: string
+    public fieldType: string
+    public optionalFieldValues: string
+    public required: boolean
+    public pattern: string
 }

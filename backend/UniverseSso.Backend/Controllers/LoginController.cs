@@ -89,6 +89,8 @@ namespace UniverseSso.Backend.Controllers
                 FieldName = x.FieldName,
                 FieldType = x.FieldType,
                 OptionalFieldValues = x.OptionalFieldValues,
+                Required = x.Required,
+                Pattern = x.Pattern
             });
 
             return loginFields;

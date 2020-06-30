@@ -5,7 +5,7 @@ import {
     NgModule
 } from '@angular/core';
 import {
-    FormsModule
+    FormsModule, ReactiveFormsModule
 } from '@angular/forms';
 import {
     HttpClientModule
@@ -43,6 +43,7 @@ import {
 import {
     LoaderComponent
 } from './loader/loader.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
     declarations: [
@@ -54,12 +55,14 @@ import {
         ResetCredentialComponent,
         TwoFactorComponent,
         SafeHtmlPipe,
-        LoaderComponent
+        LoaderComponent,
+        ErrorPageComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         BrowserAnimationsModule
     ],

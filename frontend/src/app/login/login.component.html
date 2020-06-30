@@ -11,15 +11,15 @@
                     </div>
                     <div *ngIf="!isLoading">
                         <h3 class="spacer-bottom-10">{{provider.name}} Login</h3>
-                        <form>
+                        <form [formGroup]="form" (ngSubmit)="login(form)">
                             <div *ngFor="let field of fields">
                                 <label for="{{field.fieldName}}">{{field.fieldName}}</label>
-                                <input name="{{field.fieldName}}" [disabled]="isLoggingIn" class="form-control form-control-lg spacer-bottom-10" type="{{field.fieldType}}">
+                                <input name="{{field.fieldName}}" class="form-control form-control-lg spacer-bottom-10" type="{{field.fieldType}}" [formControlName]="field.fieldName">
                             </div>
                             <label for="rememberMe" class="form-check-label">Remember Me</label>
-                            <input name="rememberMe" [disabled]="isLoggingIn" class="form-check-input spacer-left-10 spacer-bottom-10" type="checkbox">
+                            <input name="rememberMe" class="form-check-input spacer-left-10 spacer-bottom-10" type="checkbox" [value]="rememberMe" (change)="onChangeRememberMe($event)" [disabled]="isLoggingIn">
                             <div class="spacer-top-10">
-                                <button class="btn btn-primary" (click)="login()">Login</button>
+                                <button class="btn btn-primary" [disabled]="isLoggingIn">Login</button>
                             </div>
                         </form>
                     </div>
