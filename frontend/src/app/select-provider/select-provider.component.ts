@@ -11,8 +11,8 @@ import {
     Observable
 } from 'rxjs';
 import {
-    ProviderApiService
-} from '../services/provider-api.service';
+    LoginApiService
+} from '../services/login-api.service';
 import {
     ProviderViewModel
 } from '../models/provider';
@@ -32,7 +32,7 @@ export class SelectProviderComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private providerApi: ProviderApiService) {
+        private providerApi: LoginApiService) {
         this.handleProviderRedirect(router);
     }
 

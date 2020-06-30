@@ -22,7 +22,7 @@ import { FieldModel } from '../models/field';
 @Injectable({
     providedIn: 'root'
 })
-export class ProviderApiService {
+export class LoginApiService {
     private providersEndpoint = "api/login/providers";
     private providerEndpoint = "api/login/provider";
     private fieldsEndpoint = "api/login/fields";

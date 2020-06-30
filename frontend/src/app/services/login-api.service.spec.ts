@@ -3,15 +3,15 @@ import {
 } from '@angular/core/testing';
 
 import {
-    ProviderApiService
-} from './provider-api.service';
+    LoginApiService
+} from './login-api.service';
 
 describe('ProviderApiService', () => {
-    let service: ProviderApiService;
+    let service: LoginApiService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        service = TestBed.inject(ProviderApiService);
+        service = TestBed.inject(LoginApiService);
     });
 
     it('should be created', () => {

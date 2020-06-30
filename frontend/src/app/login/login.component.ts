@@ -3,8 +3,8 @@ import {
     OnInit
 } from '@angular/core';
 import {
-    ProviderApiService
-} from '../services/provider-api.service';
+    LoginApiService
+} from '../services/login-api.service';
 import {
     Router,
     ActivatedRoute,
@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
         private router: Router,
-        private providerApi: ProviderApiService) {
+        private loginApi: LoginApiService) {
         this.handleSelectProviderRedirect(router);
     }
 
-    handleSelectProviderRedirect(router: Router) {
+    private handleSelectProviderRedirect(router: Router) {
         this.route.queryParams.subscribe(params => {
             let providerName = params['provider'];
             if (!providerName) {
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    gotoProviderSelection() {
+    private gotoProviderSelection() {
         this.router.navigate(['selectProvider'], {
             queryParamsHandling: 'merge'
         });
@@ -58,33 +58,37 @@ export class LoginComponent implements OnInit {
         this.loadProvider();
     }
 
-    loadProvider() {
+    private loadProvider() {
         this.isLoading = true;
-        this.providerApi.getProvider(this.providerName)
+        this.loginApi.getProvider(this.providerName)
             .subscribe({ next: provider => {
                 this.provider = provider;
-                this.providerApi.getFields(this.provider.name, 'Login').subscribe(fields => {
-                    this.fields = fields;
-                    let fieldMap = {};
-                    this.fields.forEach(field => {
-                        let validators = [];
-                        if (field.required) {
-                            validators.push(Validators.required);
-                        }
-                        if (field.pattern) {
-                            validators.push(Validators.pattern(field.pattern));
-                        }
-                        let formControl = new FormControl('', validators);
-                        fieldMap[field.fieldName] = formControl;
-                    });
-                    this.form = new FormGroup(fieldMap);
-                    this.isLoading = false;
-                });
+                this.loadFields();
             },
             error: error => {
                 console.log(error)
                 this.isLoading = false;
             }
+        });
+    }
+
+    private loadFields() {
+        this.loginApi.getFields(this.provider.name, 'Login').subscribe(fields => {
+            this.fields = fields;
+            let fieldMap = {};
+            this.fields.forEach(field => {
+                let validators = [];
+                if (field.required) {
+                    validators.push(Validators.required);
+                }
+                if (field.pattern) {
+                    validators.push(Validators.pattern(field.pattern));
+                }
+                let formControl = new FormControl('', validators);
+                fieldMap[field.fieldName] = formControl;
+            });
+            this.form = new FormGroup(fieldMap);
+            this.isLoading = false;
         });
     }
 
