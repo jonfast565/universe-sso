@@ -38,6 +38,10 @@ body {
     background-color: lightgreen;
 }
 
+.border-error {
+    border-color: #dc3545;
+}
+
 .background {
     z-index: -10000;
     top: 0;

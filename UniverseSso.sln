@@ -25,7 +25,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Token Builders", "Token Bui
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.TokenBuilder.LegacyFormsAuthentication", "backend\UniverseSso.TokenBuilder.LegacyFormsAuthentication\UniverseSso.TokenBuilder.LegacyFormsAuthentication.csproj", "{618BEDB0-7D43-4134-B10A-A469C2C5EFE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.DataLoader", "backend\UniverseSso.DataLoader\UniverseSso.DataLoader.csproj", "{DA16D154-2465-4C20-A68B-788E9B326B89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.DataLoader", "backend\UniverseSso.DataLoader\UniverseSso.DataLoader.csproj", "{DA16D154-2465-4C20-A68B-788E9B326B89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticators", "Authenticators", "{1217F2ED-0DEE-4C7B-9470-1D3129539EA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Ncdr", "UniverseSso.Authenticators.Ncdr\UniverseSso.Authenticators.Ncdr.csproj", "{2F6950EE-C913-4017-94D3-5D0D1259D549}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Acc", "UniverseSso.Authenticators.Acc\UniverseSso.Authenticators.Acc.csproj", "{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Test", "UniverseSso.Authenticators.Test\UniverseSso.Authenticators.Test.csproj", "{0A798F6C-0776-4E58-8BF5-CB6F061D5DF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Utilities", "UniverseSso.Utilities\UniverseSso.Utilities.csproj", "{9C8023A4-98B4-4CA4-B433-06EFA96E8600}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +85,22 @@ Global
 		{DA16D154-2465-4C20-A68B-788E9B326B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA16D154-2465-4C20-A68B-788E9B326B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA16D154-2465-4C20-A68B-788E9B326B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F6950EE-C913-4017-94D3-5D0D1259D549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F6950EE-C913-4017-94D3-5D0D1259D549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F6950EE-C913-4017-94D3-5D0D1259D549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F6950EE-C913-4017-94D3-5D0D1259D549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A798F6C-0776-4E58-8BF5-CB6F061D5DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A798F6C-0776-4E58-8BF5-CB6F061D5DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A798F6C-0776-4E58-8BF5-CB6F061D5DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A798F6C-0776-4E58-8BF5-CB6F061D5DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C8023A4-98B4-4CA4-B433-06EFA96E8600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C8023A4-98B4-4CA4-B433-06EFA96E8600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C8023A4-98B4-4CA4-B433-06EFA96E8600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C8023A4-98B4-4CA4-B433-06EFA96E8600}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +111,9 @@ Global
 		{03AAA791-EC2D-4A90-ABBF-45337E52DFD6} = {604AC262-E035-4EEC-8E33-A77B2C192C52}
 		{D43E6C54-2DF5-454E-9566-DFFE2F3A6946} = {604AC262-E035-4EEC-8E33-A77B2C192C52}
 		{618BEDB0-7D43-4134-B10A-A469C2C5EFE5} = {06C61EAD-7EEE-424C-B5E3-6614DBCCCF79}
+		{2F6950EE-C913-4017-94D3-5D0D1259D549} = {1217F2ED-0DEE-4C7B-9470-1D3129539EA0}
+		{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98} = {1217F2ED-0DEE-4C7B-9470-1D3129539EA0}
+		{0A798F6C-0776-4E58-8BF5-CB6F061D5DF0} = {1217F2ED-0DEE-4C7B-9470-1D3129539EA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8A037A80-39D3-497D-84EF-1E3BFA2479F0}

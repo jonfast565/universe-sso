@@ -116,32 +116,41 @@ export class LoginComponent implements OnInit {
         this.rememberMe = e.target.checked;
     }
 
-    public login(form: FormGroup) {
+    public login() {
         // fix loading issues
         this.isLoggingIn = true;
         var fields = {};
 
         // disable fields and push fields
-        this.disableFields(form, fields);
+        this.disableFields(this.form, fields);
         // set remember me
         fields['RememberMe'] = this.rememberMe;
-
-        console.log(this.fieldFormControls);
-
-        if (form.invalid) {
-            // TODO: Fix this
-            console.log('the form is invalid');
-        }
 
         this.loginApi.login(this.providerName, fields).subscribe({
             next: result => {
                 // TODO: What to do?
-                this.enableFields(form);
+                this.enableFields(this.form);
                 this.isLoggingIn = false;
+
+                if (result.flags.accountLocked) {
+                    console.log('account locked');
+                }
+
+                if (result.flags.requiresPasswordReset) {
+                    console.log('requires password reset');
+                }
+
+                if (result.flags.requiresRecoveryOptionsSet) {
+                    console.log('requires recovery options set');
+                }
+
+                if (result.flags.requiresTwoFactorAuthentication) {
+                    console.log('requires two factor authentication');
+                }
             },
             error: error => {
                 // re-enable fields
-                this.enableFields(form);
+                this.enableFields(this.form);
                 this.isLoggingIn = false;
 
                 // TODO: Do not log error

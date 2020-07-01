@@ -5,8 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\UniverseSso.Authenticators.Acc\UniverseSso.Authenticators.Acc.csproj" />
+    <ProjectReference Include="..\..\UniverseSso.Authenticators.Ncdr\UniverseSso.Authenticators.Ncdr.csproj" />
+    <ProjectReference Include="..\..\UniverseSso.Authenticators.Test\UniverseSso.Authenticators.Test.csproj" />
+    <ProjectReference Include="..\..\UniverseSso.Utilities\UniverseSso.Utilities.csproj" />
     <ProjectReference Include="..\UniverseSso.Entities\UniverseSso.Entities.csproj" />
     <ProjectReference Include="..\UniverseSso.Models\UniverseSso.Models.csproj" />
+    <ProjectReference Include="..\UniverseSso.Saml\UniverseSso.Saml.csproj" />
+    <ProjectReference Include="..\UniverseSso.TokenBuilder.LegacyFormsAuthentication\UniverseSso.TokenBuilder.LegacyFormsAuthentication.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
 

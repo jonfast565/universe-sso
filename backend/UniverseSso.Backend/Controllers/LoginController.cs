@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using UniverseSso.Entities;
 using UniverseSso.Models;
 using UniverseSso.Models.Implementation;
+using Newtonsoft.Json;
+using UniverseSso.Utilities;
 
 namespace UniverseSso.Backend.Controllers
 {
@@ -33,10 +35,10 @@ namespace UniverseSso.Backend.Controllers
             var providers = await _dbContext.Provider
                 .Where(x => x.Enabled)
                 .Select(x => new ProviderViewModelSlim
-            {
-                Name = x.ProviderName,
-                Logo = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderLogo)}"
-            }).ToListAsync(ct);
+                {
+                    Name = x.ProviderName,
+                    Logo = $"data:image/png;base64, {Convert.ToBase64String(x.ProviderLogo)}"
+                }).ToListAsync(ct);
 
             return providers;
         }
@@ -67,16 +69,21 @@ namespace UniverseSso.Backend.Controllers
         {
             if (string.IsNullOrEmpty(providerName))
             {
-                throw new Exception($"Provider {providerName} not found.");
+                throw new Exception($"Provider not provided.");
             }
 
             if (string.IsNullOrEmpty(pageType))
             {
-                throw new Exception($"Page type {pageType} not found.");
+                throw new Exception($"Page type not provider.");
             }
 
             var provider = await _dbContext.Provider
-                .FirstAsync(x => x.ProviderName == providerName, ct);
+                .FirstOrDefaultAsync(x => x.ProviderName == providerName, ct);
+
+            if (provider == null)
+            {
+                throw new Exception($"Provider {providerName} not found");
+            }
 
             var providerFields = await _dbContext.Field
                 .Where(x => x.ProviderId == provider.ProviderId
@@ -100,30 +107,22 @@ namespace UniverseSso.Backend.Controllers
         [Route("login")]
         public async Task<AuthenticationReasons> PostLogin(CancellationToken ct, [FromQuery] string providerName, [FromBody] Dictionary<string, object> loginFields)
         {
+            if (string.IsNullOrEmpty(providerName))
+            {
+                throw new Exception("Provider not provided");
+            }
+
             var provider = await _dbContext.Provider
-                .FirstAsync(x => x.ProviderName == providerName, ct);
+                .FirstOrDefaultAsync(x => x.ProviderName == providerName, ct);
 
-            var providerFields = await _dbContext.Field
-                .Where(x => x.Provider.ProviderName == providerName)
-                .ToListAsync(ct);
+            if (provider == null)
+            {
+                throw new Exception($"Provider {providerName} not found.");
+            }
 
-            // TODO: Add login logic
-            return new AuthenticationReasons {
-                Authenticated = true,
-                SuccessReasons = new string[] { "nothing implemented yet" },
-                FailureReasons = null,
-                Flags = new AuthenticationFlags {
-                    RequiresPasswordReset = true,
-                    PasswordAgeInDays = 1,
-                    AccountLocked = false,
-                    AuthFailedAttempts = 0,
-                    SessionExists = false,
-                    SessionTransferred = false,
-                    SessionTransferChain = new string[] { },
-                    RequiresRecoveryOptionsSet = true,
-                    RequiresTwoFactorAuthentication = false
-                }
-            };
+            var authStrategy = AuthenticationUtilities.LoadAuthenticationStrategyByProvider(providerName);
+            var reasons = authStrategy.Authenticate(loginFields);
+            return reasons;
         }
     }
 }

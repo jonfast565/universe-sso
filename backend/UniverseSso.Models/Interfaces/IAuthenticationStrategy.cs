@@ -7,6 +7,8 @@ namespace UniverseSso.Models.Interfaces
 {
     public interface IAuthenticationStrategy
     {
-        AuthenticationReasons Authenticate(IDictionary<string, string> loginFieldsDictionary);
+        string ProviderName { get; set; }
+
+        AuthenticationReasons Authenticate(IDictionary<string, object> loginFields);
     }
 }
