@@ -14,7 +14,7 @@ import {
     ProviderViewModel
 } from '../models/provider';
 import {
-    FieldModel
+    FieldModel, FieldFormControl
 } from '../models/field';
 import {
     NgForm,
@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit {
 
     public providerName: string = null;
     public provider: ProviderViewModel = null;
-    public fields: FieldModel[] = null;
+    public fields: FieldModel[] = [];
+    public fieldFormControls: FieldFormControl[] = [];
     public isLoading: boolean = false;
     public isLoggingIn: boolean = false;
     public form: FormGroup = null;
@@ -86,15 +87,22 @@ export class LoginComponent implements OnInit {
             let fieldMap = {};
             this.fields.forEach(field => {
                 let validators = [];
+
                 if (field.required) {
                     validators.push(Validators.required);
                 }
+
                 if (field.pattern) {
                     validators.push(Validators.pattern(field.pattern));
                 }
-                let formControl = new FormControl('', validators);
-                fieldMap[field.fieldName] = formControl;
+
+                let fieldFormControl = new FieldFormControl();
+                fieldFormControl.field = field;
+                fieldFormControl.control = new FormControl('', validators);
+                fieldMap[field.fieldName] = fieldFormControl.control;
+                this.fieldFormControls.push(fieldFormControl);
             });
+
             this.form = new FormGroup(fieldMap);
             this.isLoading = false;
         });
@@ -117,6 +125,13 @@ export class LoginComponent implements OnInit {
         this.disableFields(form, fields);
         // set remember me
         fields['RememberMe'] = this.rememberMe;
+
+        console.log(this.fieldFormControls);
+
+        if (form.invalid) {
+            // TODO: Fix this
+            console.log('the form is invalid');
+        }
 
         this.loginApi.login(this.providerName, fields).subscribe({
             next: result => {

@@ -12,9 +12,18 @@
                     <div *ngIf="!isLoading">
                         <h3 class="spacer-bottom-10">{{provider.name}} Login</h3>
                         <form [formGroup]="form" (ngSubmit)="login(form)">
-                            <div *ngFor="let field of fields">
-                                <label for="{{field.fieldName}}">{{field.fieldName}}</label>
-                                <input name="{{field.fieldName}}" class="form-control form-control-lg spacer-bottom-10" type="{{field.fieldType}}" [formControlName]="field.fieldName">
+                            <div *ngFor="let ffc of fieldFormControls">
+                                <label for="{{ffc.field.fieldName}}">{{ffc.field.fieldName}}</label>
+                                <input name="{{ffc.field.fieldName}}" class="form-control form-control-lg spacer-bottom-10" type="{{ffc.field.fieldType}}" [formControlName]="ffc.field.fieldName">
+                                <div class="text-danger" *ngIf="ffc.control && ffc.control.errors && (ffc.control.dirty || ffc.control.touched)">
+                                    <div *ngIf="ffc.control.errors.required"><small>This field is required</small></div>
+                                    <div *ngIf="ffc.control.errors.unique"><small>{{ffc.control.errors.unique}}</small></div>
+                                    <div *ngIf="ffc.control.errors.lessThen"><small>{{ffc.control.errors.lessThen}}</small></div>
+                                    <div *ngIf="ffc.control.errors.greaterThan"><small>{{ffc.control.errors.greaterThan}}</small></div>
+                                    <div *ngIf="ffc.control.errors.email"><small>{{ffc.control.errors.email}}</small></div>
+                                    <div *ngIf="ffc.control.errors.mobile"><small>{{ffc.control.errors.mobile}}</small></div>
+                                    <div *ngIf="ffc.control.errors.confirmPassword"><small>{{ffc.control.errors.confirmPassword}}</small></div>
+                               </div>
                             </div>
                             <label for="rememberMe" class="form-check-label">Remember Me</label>
                             <input name="rememberMe" class="form-check-input spacer-left-10 spacer-bottom-10" type="checkbox" [value]="rememberMe" (change)="onChangeRememberMe($event)" [disabled]="isLoggingIn">

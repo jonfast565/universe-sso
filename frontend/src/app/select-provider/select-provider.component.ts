@@ -14,11 +14,9 @@ import {
     LoginApiService
 } from '../services/login-api.service';
 import {
-    ProviderViewModel
-} from '../models/provider';
-import {
+    ProviderViewModel,
     ProviderViewModelSlim
-} from '../models/providerviewmodelslim';
+} from '../models/provider';
 
 @Component({
     selector: 'app-select-provider',
