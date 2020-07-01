@@ -29,13 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.DataLoader", "b
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticators", "Authenticators", "{1217F2ED-0DEE-4C7B-9470-1D3129539EA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Ncdr", "UniverseSso.Authenticators.Ncdr\UniverseSso.Authenticators.Ncdr.csproj", "{2F6950EE-C913-4017-94D3-5D0D1259D549}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Ncdr", "backend\UniverseSso.Authenticators.Ncdr\UniverseSso.Authenticators.Ncdr.csproj", "{2F6950EE-C913-4017-94D3-5D0D1259D549}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Acc", "UniverseSso.Authenticators.Acc\UniverseSso.Authenticators.Acc.csproj", "{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Acc", "backend\UniverseSso.Authenticators.Acc\UniverseSso.Authenticators.Acc.csproj", "{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Test", "UniverseSso.Authenticators.Test\UniverseSso.Authenticators.Test.csproj", "{0A798F6C-0776-4E58-8BF5-CB6F061D5DF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Authenticators.Test", "backend\UniverseSso.Authenticators.Test\UniverseSso.Authenticators.Test.csproj", "{0A798F6C-0776-4E58-8BF5-CB6F061D5DF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Utilities", "UniverseSso.Utilities\UniverseSso.Utilities.csproj", "{9C8023A4-98B4-4CA4-B433-06EFA96E8600}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Utilities", "backend\UniverseSso.Utilities\UniverseSso.Utilities.csproj", "{9C8023A4-98B4-4CA4-B433-06EFA96E8600}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
