@@ -2,12 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UniverseSso.Authenticators.Acc\UniverseSso.Authenticators.Acc.csproj" />
     <ProjectReference Include="..\UniverseSso.Authenticators.Ncdr\UniverseSso.Authenticators.Ncdr.csproj" />
     <ProjectReference Include="..\UniverseSso.Authenticators.Test\UniverseSso.Authenticators.Test.csproj" />
+    <ProjectReference Include="..\UniverseSso.Configuration\UniverseSso.Configuration.csproj" />
     <ProjectReference Include="..\UniverseSso.Utilities\UniverseSso.Utilities.csproj" />
     <ProjectReference Include="..\UniverseSso.Entities\UniverseSso.Entities.csproj" />
     <ProjectReference Include="..\UniverseSso.Models\UniverseSso.Models.csproj" />

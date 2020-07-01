@@ -7,18 +7,19 @@ using UniverseSso.Models.Interfaces;
 
 namespace UniverseSso.Utilities
 {
-    public static class AuthenticationUtilities
+    public class AuthenticationLoader
     {
-        private static string[] DllPaths = {
-            "./bin/Debug/netcoreapp3.1/UniverseSso.Authenticators.Ncdr.dll",
-            "./bin/Debug/netcoreapp3.1/UniverseSso.Authenticators.Acc.dll",
-            "./bin/Debug/netcoreapp3.1/UniverseSso.Authenticators.Test.dll",
-        };
+        private string[] DllPaths { get; }
 
         private static string AuthenticationStrategyInterfaceName =
                 "UniverseSso.Models.Interfaces.IAuthenticationStrategy";
 
-        public static IAuthenticationStrategy LoadAuthenticationStrategyByProvider(string provider)
+        public AuthenticationLoader(string[] dllPaths)
+        {
+            DllPaths = dllPaths;
+        }
+
+        public IAuthenticationStrategy LoadStrategiesByProvider(string provider)
         {
             var fullDllPaths = DllPaths
                 .Select(x => new FileInfo(x).FullName)

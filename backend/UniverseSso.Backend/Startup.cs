@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using UniverseSso.Entities;
 using Microsoft.EntityFrameworkCore;
+using UniverseSso.Configuration.Implementation;
+using UniverseSso.Configuration.Interfaces;
 
 namespace UniverseSso.Backend
 {
@@ -23,6 +25,7 @@ namespace UniverseSso.Backend
             services.AddControllers();
             services.AddDbContext<LoginDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LoginConnectionString")));
+            services.AddTransient<IBackendConfiguration, BackendConfiguration>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

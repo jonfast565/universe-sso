@@ -6,11 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using UniverseSso.Entities;
 using UniverseSso.Models;
 using UniverseSso.Models.Implementation;
 using Newtonsoft.Json;
+using UniverseSso.Configuration.Interfaces;
 using UniverseSso.Utilities;
 
 namespace UniverseSso.Backend.Controllers
@@ -21,11 +23,16 @@ namespace UniverseSso.Backend.Controllers
     {
         private readonly LoginDbContext _dbContext;
         private readonly ILogger<LoginController> _logger;
+        private IBackendConfiguration _config;
 
-        public LoginController(LoginDbContext dbContext, ILogger<LoginController> logger)
+        public LoginController(
+            LoginDbContext dbContext, 
+            ILogger<LoginController> logger,
+            IBackendConfiguration config)
         {
             _dbContext = dbContext;
             _logger = logger;
+            _config = config;
         }
 
         [HttpGet]
@@ -120,7 +127,8 @@ namespace UniverseSso.Backend.Controllers
                 throw new Exception($"Provider {providerName} not found.");
             }
 
-            var authStrategy = AuthenticationUtilities.LoadAuthenticationStrategyByProvider(providerName);
+            var authLoader = new AuthenticationLoader(_config.AuthenticationDlls);
+            var authStrategy = authLoader.LoadStrategiesByProvider(providerName);
             var reasons = authStrategy.Authenticate(loginFields);
             return reasons;
         }
