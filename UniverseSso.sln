@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Token Builders", "Token Bui
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.TokenBuilder.LegacyFormsAuthentication", "backend\UniverseSso.TokenBuilder.LegacyFormsAuthentication\UniverseSso.TokenBuilder.LegacyFormsAuthentication.csproj", "{618BEDB0-7D43-4134-B10A-A469C2C5EFE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.DataLoader", "UniverseSso.DataLoader\UniverseSso.DataLoader.csproj", "{DA16D154-2465-4C20-A68B-788E9B326B89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.DataLoader", "backend\UniverseSso.DataLoader\UniverseSso.DataLoader.csproj", "{DA16D154-2465-4C20-A68B-788E9B326B89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
