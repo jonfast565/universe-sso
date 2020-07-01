@@ -98,13 +98,32 @@ namespace UniverseSso.Backend.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task PostLogin(CancellationToken ct, string providerName, Dictionary<string, string> loginFields)
+        public async Task<AuthenticationReasons> PostLogin(CancellationToken ct, [FromQuery] string providerName, [FromBody] Dictionary<string, object> loginFields)
         {
+            var provider = await _dbContext.Provider
+                .FirstAsync(x => x.ProviderName == providerName, ct);
+
             var providerFields = await _dbContext.Field
                 .Where(x => x.Provider.ProviderName == providerName)
                 .ToListAsync(ct);
 
             // TODO: Add login logic
+            return new AuthenticationReasons {
+                Authenticated = true,
+                SuccessReasons = new string[] { "nothing implemented yet" },
+                FailureReasons = null,
+                Flags = new AuthenticationFlags {
+                    RequiresPasswordReset = true,
+                    PasswordAgeInDays = 1,
+                    AccountLocked = false,
+                    AuthFailedAttempts = 0,
+                    SessionExists = false,
+                    SessionTransferred = false,
+                    SessionTransferChain = new string[] { },
+                    RequiresRecoveryOptionsSet = true,
+                    RequiresTwoFactorAuthentication = false
+                }
+            };
         }
     }
 }

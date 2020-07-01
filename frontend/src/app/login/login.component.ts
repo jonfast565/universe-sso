@@ -13,8 +13,15 @@ import {
 import {
     ProviderViewModel
 } from '../models/provider';
-import { FieldModel } from '../models/field';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+    FieldModel
+} from '../models/field';
+import {
+    NgForm,
+    FormGroup,
+    FormControl,
+    Validators
+} from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -28,8 +35,8 @@ export class LoginComponent implements OnInit {
     public fields: FieldModel[] = null;
     public isLoading: boolean = false;
     public isLoggingIn: boolean = false;
-    public form : FormGroup = null;
-    public rememberMe : boolean = false;
+    public form: FormGroup = null;
+    public rememberMe: boolean = false;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -61,15 +68,16 @@ export class LoginComponent implements OnInit {
     private loadProvider() {
         this.isLoading = true;
         this.loginApi.getProvider(this.providerName)
-            .subscribe({ next: provider => {
-                this.provider = provider;
-                this.loadFields();
-            },
-            error: error => {
-                console.log(error)
-                this.isLoading = false;
-            }
-        });
+            .subscribe({
+                next: provider => {
+                    this.provider = provider;
+                    this.loadFields();
+                },
+                error: error => {
+                    console.log(error)
+                    this.isLoading = false;
+                }
+            });
     }
 
     private loadFields() {
@@ -92,35 +100,51 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    onChangeRememberMe(e: { target: { checked: boolean; }; }) {
+    onChangeRememberMe(e: {
+        target: {
+            checked: boolean;
+        };
+    }) {
         this.rememberMe = e.target.checked;
     }
 
-    public login(form : FormGroup) {
+    public login(form: FormGroup) {
         // fix loading issues
         this.isLoggingIn = true;
         var fields = {};
 
         // disable fields and push fields
+        this.disableFields(form, fields);
+        // set remember me
+        fields['RememberMe'] = this.rememberMe;
+
+        this.loginApi.login(this.providerName, fields).subscribe({
+            next: result => {
+                // TODO: What to do?
+                this.enableFields(form);
+                this.isLoggingIn = false;
+            },
+            error: error => {
+                // re-enable fields
+                this.enableFields(form);
+                this.isLoggingIn = false;
+
+                // TODO: Do not log error
+                console.log(error);
+            }
+        });
+    }
+
+    private disableFields(form: FormGroup, fields: {}) {
         this.fields.forEach(field => {
             form.controls[field.fieldName].disable();
             fields[field.fieldName] = form.controls[field.fieldName].value;
         });
+    }
 
-        // set remember me
-        fields['RememberMe'] = this.rememberMe;
-
-        // login
-        setTimeout(() => { 
-
-
-
-            // re-enable fields
-            this.fields.forEach(field => {
-                form.controls[field.fieldName].enable();
-            });
-
-            this.isLoggingIn = false; 
-        }, 2000 , this)
-    } 
+    private enableFields(form: FormGroup) {
+        this.fields.forEach(field => {
+            form.controls[field.fieldName].enable();
+        });
+    }
 }
