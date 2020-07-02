@@ -24,6 +24,7 @@ namespace UniverseSso.Backend.Controllers
         private readonly LoginDbContext _dbContext;
         private readonly ILogger<LoginController> _logger;
         private IBackendConfiguration _config;
+        private AuthenticationLoader _authLoader;
 
         public LoginController(
             LoginDbContext dbContext, 
@@ -33,6 +34,7 @@ namespace UniverseSso.Backend.Controllers
             _dbContext = dbContext;
             _logger = logger;
             _config = config;
+            _authLoader = new AuthenticationLoader(_config.AuthenticationDlls);
         }
 
         [HttpGet]
@@ -127,8 +129,7 @@ namespace UniverseSso.Backend.Controllers
                 throw new Exception($"Provider {providerName} not found.");
             }
 
-            var authLoader = new AuthenticationLoader(_config.AuthenticationDlls);
-            var authStrategy = authLoader.LoadStrategiesByProvider(providerName);
+            var authStrategy = _authLoader.GetStrategyByProvider(providerName);
             var reasons = authStrategy.Authenticate(loginFields);
             return reasons;
         }

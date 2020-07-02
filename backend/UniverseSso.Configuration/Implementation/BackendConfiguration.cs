@@ -19,7 +19,8 @@ namespace UniverseSso.Configuration.Implementation
         private void ResetValues()
         {
             AuthenticationDlls = _config
-                .GetValue<string[]>("AuthenticationDlls")
+                .GetSection("AuthenticationDlls")
+                .Get<string[]>()
                 .ThrowOnNullOrEmpty();
         }
     }

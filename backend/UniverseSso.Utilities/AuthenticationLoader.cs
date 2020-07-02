@@ -11,15 +11,18 @@ namespace UniverseSso.Utilities
     {
         private string[] DllPaths { get; }
 
+        private Type[] DllTypes { get; set; }
+
         private static string AuthenticationStrategyInterfaceName =
                 "UniverseSso.Models.Interfaces.IAuthenticationStrategy";
 
         public AuthenticationLoader(string[] dllPaths)
         {
             DllPaths = dllPaths;
+            LoadDlls();
         }
 
-        public IAuthenticationStrategy LoadStrategiesByProvider(string provider)
+        private void LoadDlls()
         {
             var fullDllPaths = DllPaths
                 .Select(x => new FileInfo(x).FullName)
@@ -27,7 +30,12 @@ namespace UniverseSso.Utilities
 
             var types = LoaderUtilities.LoadDlls(fullDllPaths);
 
-            var strategies = types.Where(x => 
+            DllTypes = types.ToArray();
+        }
+
+        public IAuthenticationStrategy GetStrategyByProvider(string provider)
+        {
+            var strategies = DllTypes.Where(x => 
                 x.GetInterface(AuthenticationStrategyInterfaceName) != null)
                 .ToList();
 
