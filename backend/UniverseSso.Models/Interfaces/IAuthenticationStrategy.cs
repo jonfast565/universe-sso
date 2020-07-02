@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using UniverseSso.Models.Implementation;
 
 namespace UniverseSso.Models.Interfaces
@@ -10,5 +8,7 @@ namespace UniverseSso.Models.Interfaces
         string ProviderName { get; set; }
 
         AuthenticationReasons Authenticate(IDictionary<string, object> loginFields);
+
+        void RecoverPassword(IDictionary<string, object> recoveryFields);
     }
 }

@@ -44,6 +44,8 @@ import {
     LoaderComponent
 } from './loader/loader.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { AuthenticationJumpComponent } from './authentication-jump/authentication-jump.component';
+import { AccountLockedComponent } from './account-locked/account-locked.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +58,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
         TwoFactorComponent,
         SafeHtmlPipe,
         LoaderComponent,
-        ErrorPageComponent
+        ErrorPageComponent,
+        AuthenticationJumpComponent,
+        AccountLockedComponent
     ],
     imports: [
         BrowserModule,

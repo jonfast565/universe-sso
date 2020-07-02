@@ -21,15 +21,20 @@ namespace UniverseSso.Authenticators.Ncdr
                 {
                     RequiresPasswordReset = true,
                     PasswordAgeInDays = 1,
-                    AccountLocked = false,
+                    AccountLocked = true,
                     AuthFailedAttempts = 0,
                     SessionExists = false,
                     SessionTransferred = false,
                     SessionTransferChain = new string[] { },
                     RequiresRecoveryOptionsSet = true,
-                    RequiresTwoFactorAuthentication = false
+                    RequiresTwoFactorAuthentication = true
                 }
             };
+        }
+
+        public void RecoverPassword(IDictionary<string, object> recoveryFields)
+        {
+            throw new NotImplementedException();
         }
     }
 }

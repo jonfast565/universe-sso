@@ -17,6 +17,7 @@ import {
     ProviderViewModel,
     ProviderViewModelSlim
 } from '../models/provider';
+import { NavigationStateMachineService } from '../services/navigation-state-machine.service';
 
 @Component({
     selector: 'app-select-provider',
@@ -30,7 +31,8 @@ export class SelectProviderComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private providerApi: LoginApiService) {
+        private providerApi: LoginApiService,
+        private navigation: NavigationStateMachineService) {
         this.handleProviderRedirect(router);
     }
 
@@ -52,7 +54,7 @@ export class SelectProviderComponent implements OnInit {
             },
             error: error => {
                 this.isLoading = false;
-                console.log(error);
+                this.navigation.navigateToErrorPage(error);
             }
         });
     }

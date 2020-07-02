@@ -14,7 +14,8 @@ import {
     ProviderViewModel
 } from '../models/provider';
 import {
-    FieldModel, FieldFormControl
+    FieldModel,
+    FieldFormControl
 } from '../models/field';
 import {
     NgForm,
@@ -22,6 +23,12 @@ import {
     FormControl,
     Validators
 } from '@angular/forms';
+import {
+    NavigationStateMachineService
+} from '../services/navigation-state-machine.service';
+import {
+    AuthServiceService
+} from '../auth-service.service';
 
 @Component({
     selector: 'app-login',
@@ -41,7 +48,9 @@ export class LoginComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
         private router: Router,
-        private loginApi: LoginApiService) {
+        private loginApi: LoginApiService,
+        private navigation: NavigationStateMachineService,
+        private authService: AuthServiceService) {
         this.handleSelectProviderRedirect(router);
     }
 
@@ -132,29 +141,15 @@ export class LoginComponent implements OnInit {
                 this.enableFields(this.form);
                 this.isLoggingIn = false;
 
-                if (result.flags.accountLocked) {
-                    console.log('account locked');
-                }
-
-                if (result.flags.requiresPasswordReset) {
-                    console.log('requires password reset');
-                }
-
-                if (result.flags.requiresRecoveryOptionsSet) {
-                    console.log('requires recovery options set');
-                }
-
-                if (result.flags.requiresTwoFactorAuthentication) {
-                    console.log('requires two factor authentication');
-                }
+                // set auth flags cookie
+                this.authService.setAuthenticationFlags(result.flags);
+                this.navigation.navigateNext();
             },
             error: error => {
                 // re-enable fields
                 this.enableFields(this.form);
                 this.isLoggingIn = false;
-
-                // TODO: Do not log error
-                console.log(error);
+                this.navigation.navigateToErrorPage(error);
             }
         });
     }
