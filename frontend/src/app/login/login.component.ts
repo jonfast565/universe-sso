@@ -93,28 +93,32 @@ export class LoginComponent implements OnInit {
     private loadFields() {
         this.loginApi.getFields(this.provider.name, 'Login').subscribe(fields => {
             this.fields = fields;
-            let fieldMap = {};
-            this.fields.forEach(field => {
-                let validators = [];
-
-                if (field.required) {
-                    validators.push(Validators.required);
-                }
-
-                if (field.pattern) {
-                    validators.push(Validators.pattern(field.pattern));
-                }
-
-                let fieldFormControl = new FieldFormControl();
-                fieldFormControl.field = field;
-                fieldFormControl.control = new FormControl('', validators);
-                fieldMap[field.fieldName] = fieldFormControl.control;
-                this.fieldFormControls.push(fieldFormControl);
-            });
-
-            this.form = new FormGroup(fieldMap);
+            this.initializeFields();
             this.isLoading = false;
         });
+    }
+
+    private initializeFields() {
+        let fieldMap = {};
+        this.fields.forEach(field => {
+            let validators = [];
+
+            if (field.required) {
+                validators.push(Validators.required);
+            }
+
+            if (field.pattern) {
+                validators.push(Validators.pattern(field.pattern));
+            }
+
+            let fieldFormControl = new FieldFormControl();
+            fieldFormControl.field = field;
+            fieldFormControl.control = new FormControl('', validators);
+            fieldMap[field.fieldName] = fieldFormControl.control;
+            this.fieldFormControls.push(fieldFormControl);
+        });
+
+        this.form = new FormGroup(fieldMap);
     }
 
     onChangeRememberMe(e: {
