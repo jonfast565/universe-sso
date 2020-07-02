@@ -23,8 +23,7 @@ namespace UniverseSso.Backend.Controllers
     {
         private readonly LoginDbContext _dbContext;
         private readonly ILogger<LoginController> _logger;
-        private IBackendConfiguration _config;
-        private AuthenticationLoader _authLoader;
+        private readonly AuthenticationLoader _authLoader;
 
         public LoginController(
             LoginDbContext dbContext, 
@@ -33,8 +32,7 @@ namespace UniverseSso.Backend.Controllers
         {
             _dbContext = dbContext;
             _logger = logger;
-            _config = config;
-            _authLoader = new AuthenticationLoader(_config.AuthenticationDlls);
+            _authLoader = new AuthenticationLoader(config.AuthenticationDlls);
         }
 
         [HttpGet]
@@ -129,8 +127,13 @@ namespace UniverseSso.Backend.Controllers
                 throw new Exception($"Provider {providerName} not found.");
             }
 
+            _logger.LogInformation($"Login attempted with provider {providerName}: {JsonConvert.SerializeObject(loginFields, Formatting.Indented)}");
+
             var authStrategy = _authLoader.GetStrategyByProvider(providerName);
             var reasons = authStrategy.Authenticate(loginFields);
+
+            _logger.LogInformation($"Result is: {JsonConvert.SerializeObject(reasons, Formatting.Indented)}");
+
             return reasons;
         }
     }
