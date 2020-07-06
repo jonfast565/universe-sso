@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace UniverseSso.Models
+namespace UniverseSso.Models.Interfaces
 {
     public interface ILoginForm
     {

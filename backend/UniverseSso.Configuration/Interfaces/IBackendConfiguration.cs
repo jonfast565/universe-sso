@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Security;
 using System.Text;
+using UniverseSso.Configuration.Implementation;
 
 namespace UniverseSso.Configuration.Interfaces
 {
     public interface IBackendConfiguration
     {
         string[] AuthenticationDlls { get; }
-        string EmailSmtpHost { get; }
-        bool EmailEnableSsl { get; }
-        int EmailSmtpPort { get; }
-        bool EmailUseDefaultCredentials { get; }
-        string EmailUsername { get; }
-        SecureString EmailPassword { get; }
+        EmailConfiguration Email { get; }
+        FormsAuthConfiguration FormsAuth { get; }
     }
 }

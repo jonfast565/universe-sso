@@ -10,12 +10,8 @@ namespace UniverseSso.Configuration.Implementation
         private readonly IConfiguration _config;
 
         public string[] AuthenticationDlls { get; private set; }
-        public string EmailSmtpHost { get; private set; }
-        public bool EmailEnableSsl { get; private set; }
-        public int EmailSmtpPort { get; private set; }
-        public bool EmailUseDefaultCredentials { get; private set; }
-        public string EmailUsername { get; private set; }
-        public SecureString EmailPassword { get; private set; }
+        public EmailConfiguration Email { get; private set; }
+        public FormsAuthConfiguration FormsAuth { get; private set; }
 
         public BackendConfiguration(IConfiguration config)
         {
@@ -25,27 +21,30 @@ namespace UniverseSso.Configuration.Implementation
 
         private void ResetValues()
         {
+            FormsAuth = new FormsAuthConfiguration();
+            Email = new EmailConfiguration();
+
             AuthenticationDlls = _config
                 .GetSection("AuthenticationDlls")
                 .Get<string[]>()
                 .ThrowOnNullOrEmpty();
 
-            EmailSmtpHost = _config
+            Email.SmtpHost = _config
                 .GetValue<string>("Email:SmtpHost");
 
-            EmailSmtpPort = _config
+            Email.SmtpPort = _config
                 .GetValue<int>("Email:SmtpPort");
 
-            EmailEnableSsl = _config
+            Email.EnableSsl = _config
                 .GetValue<bool>("Email:EnableSsl");
 
-            EmailUseDefaultCredentials = _config
+            Email.UseDefaultCredentials = _config
                 .GetValue<bool>("Email:UseDefaultCredentials");
 
-            EmailUsername = _config
+            Email.Username = _config
                 .GetValue<string>("Email:Username");
 
-            EmailPassword = _config
+            Email.Password = _config
                 .GetValue<string>("Email:Password").ToSecureString();
         }
     }

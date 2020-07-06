@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace UniverseSso.Models
+namespace UniverseSso.Models.Implementation
 {
     public class AuthenticationClaim
     {
+        public IDictionary<string, object> Claims { get; set; }
     }
 }

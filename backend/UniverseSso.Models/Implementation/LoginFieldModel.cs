@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UniverseSso.Backend.Models;
-
-namespace UniverseSso.Models
+﻿namespace UniverseSso.Models.Implementation
 {
     public class LoginFieldModel
     {
