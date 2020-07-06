@@ -48,7 +48,7 @@ namespace UniverseSso.TokenBuilder.LegacyFormsAuthentication
             var cookiePath = claim.Claims["CookiePath"];
             var userData = claim.Claims["UserData"];
             var expiration = claim.Claims["Expiration"];
-            var expired = claim.Claims["Expired"];
+            // var expired = claim.Claims["Expired"];
             var isPersistent = claim.Claims["IsPersistent"];
             var issueDate = claim.Claims["IssueDate"];
             var version = claim.Claims["Version"];
