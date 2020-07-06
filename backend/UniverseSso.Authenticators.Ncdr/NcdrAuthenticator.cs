@@ -21,13 +21,13 @@ namespace UniverseSso.Authenticators.Ncdr
                 {
                     RequiresPasswordReset = true,
                     PasswordAgeInDays = 1,
-                    AccountLocked = true,
+                    AccountLocked = false,
                     AuthFailedAttempts = 0,
                     SessionExists = false,
                     SessionTransferred = false,
                     SessionTransferChain = new string[] { },
                     RequiresRecoveryOptionsSet = true,
-                    RequiresTwoFactorAuthentication = true
+                    RequiresTwoFactorAuthentication = false
                 }
             };
         }

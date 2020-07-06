@@ -12,7 +12,7 @@ import {
     providedIn: 'root'
 })
 export class AuthServiceService {
-    private authFlagsCookie = 'authFlagsCookie';
+    private authFlagsCookie: string = 'authFlagsCookie';
     constructor(private cookieStoreService: CookieStoreService) {}
 
     public isAuthenticated(): boolean {

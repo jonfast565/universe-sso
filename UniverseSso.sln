@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Authenticators.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Utilities", "backend\UniverseSso.Utilities\UniverseSso.Utilities.csproj", "{9C8023A4-98B4-4CA4-B433-06EFA96E8600}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Configuration", "backend\UniverseSso.Configuration\UniverseSso.Configuration.csproj", "{811CECED-FFE2-4C01-9A25-B42A6EC06C9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Configuration", "backend\UniverseSso.Configuration\UniverseSso.Configuration.csproj", "{811CECED-FFE2-4C01-9A25-B42A6EC06C9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniverseSso.Email", "backend\UniverseSso.Email\UniverseSso.Email.csproj", "{4E6CA69D-9B0C-49EF-B67C-40C64B474F92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,10 @@ Global
 		{811CECED-FFE2-4C01-9A25-B42A6EC06C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{811CECED-FFE2-4C01-9A25-B42A6EC06C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{811CECED-FFE2-4C01-9A25-B42A6EC06C9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E6CA69D-9B0C-49EF-B67C-40C64B474F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E6CA69D-9B0C-49EF-B67C-40C64B474F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E6CA69D-9B0C-49EF-B67C-40C64B474F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E6CA69D-9B0C-49EF-B67C-40C64B474F92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

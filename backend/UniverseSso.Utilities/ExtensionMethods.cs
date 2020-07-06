@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security;
 using System.Text;
 
 namespace UniverseSso.Utilities
@@ -23,6 +24,28 @@ namespace UniverseSso.Utilities
             }
 
             return requiredObject;
+        }
+
+        /// <summary>
+        ///     Convert a password to a secure string
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static SecureString ToSecureString(this string password)
+        {
+            var result = new SecureString();
+
+            if (string.IsNullOrEmpty(password))
+            {
+                return result;
+            }
+
+            foreach (var character in password)
+            {
+                result.AppendChar(character);
+            }
+
+            return result;
         }
     }
 }
