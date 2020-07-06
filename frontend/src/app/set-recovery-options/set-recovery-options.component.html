@@ -1,0 +1,35 @@
+<div class="container container-fluid spacer-top-100">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mx-auto max-window-width">
+                <div class="card-body">
+                    <div *ngIf="isLoading">
+                        <app-loader></app-loader>
+                    </div>
+                    <div *ngIf="!isLoading">
+                        <h3 class="spacer-bottom-10">Set Recovery Options</h3>
+                        <form #loginForm="ngForm" [formGroup]="form" (ngSubmit)="setRecoveryOptions()">
+                            <div *ngFor="let ffc of fieldFormControls">
+                                <label for="{{ffc.field.fieldName}}">{{ffc.field.fieldName}}</label>
+                                <input name="{{ffc.field.fieldName}}" class="form-control form-control-lg spacer-bottom-10" type="{{ffc.field.fieldType}}" [ngClass]="{'border-error': ffc.control && ffc.control.errors && (ffc.control.dirty || ffc.control.touched) }" [formControlName]="ffc.field.fieldName">
+                                <div class="text-danger" *ngIf="ffc.control && ffc.control.errors && (ffc.control.dirty || ffc.control.touched)">
+                                    <div *ngIf="ffc.control.errors.required"><small>This field is required</small></div>
+                                    <div *ngIf="ffc.control.errors.unique"><small>{{ffc.control.errors.unique}}</small></div>
+                                    <div *ngIf="ffc.control.errors.lessThen"><small>{{ffc.control.errors.lessThen}}</small></div>
+                                    <div *ngIf="ffc.control.errors.greaterThan"><small>{{ffc.control.errors.greaterThan}}</small></div>
+                                    <div *ngIf="ffc.control.errors.email"><small>{{ffc.control.errors.email}}</small></div>
+                                    <div *ngIf="ffc.control.errors.mobile"><small>{{ffc.control.errors.mobile}}</small></div>
+                                    <div *ngIf="ffc.control.errors.confirmPassword"><small>{{ffc.control.errors.confirmPassword}}</small></div>
+                                    <div *ngIf="ffc.control.errors.pattern"><small>The field does not match the required pattern {{ffc.control.errors.pattern.requiredPattern}}</small></div>
+                                </div>
+                            </div>
+                            <div class="spacer-top-10">
+                                <button class="btn btn-primary" [disabled]="isSubmitting || form.invalid">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecoveryOptionsComponent } from './recovery-options.component';
+import { SetRecoveryOptionsComponent } from './set-recovery-options.component';
 
 describe('RecoveryComponent', () => {
-  let component: RecoveryOptionsComponent;
-  let fixture: ComponentFixture<RecoveryOptionsComponent>;
+  let component: SetRecoveryOptionsComponent;
+  let fixture: ComponentFixture<SetRecoveryOptionsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecoveryOptionsComponent ]
+      declarations: [ SetRecoveryOptionsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecoveryOptionsComponent);
+    fixture = TestBed.createComponent(SetRecoveryOptionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

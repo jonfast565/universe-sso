@@ -16,8 +16,8 @@ import {
     PageNotFoundComponent
 } from './page-not-found/page-not-found.component';
 import {
-    RecoveryOptionsComponent
-} from './recovery-options/recovery-options.component';
+    SetRecoveryOptionsComponent
+} from './set-recovery-options/set-recovery-options.component';
 import {
     TwoFactorComponent
 } from './two-factor/two-factor.component';
@@ -51,8 +51,8 @@ const routes: Routes = [{
         component: SelectProviderComponent
     },
     {
-        path: 'recoveryOptions',
-        component: RecoveryOptionsComponent,
+        path: 'setRecoveryOptions',
+        component: SetRecoveryOptionsComponent,
         canActivate: [AuthGuardService]
     },
     {

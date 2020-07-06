@@ -23,6 +23,7 @@ export class NavigationStateMachineService {
         let page: string = null;
         let pageSet: boolean = false;
 
+        /*
         if (flags.accountLocked && !pageSet) {
             page = "accountLocked";
             pageSet = true;
@@ -40,9 +41,10 @@ export class NavigationStateMachineService {
             pageSet = true;
             flags.requiresPasswordReset = false;
         }
+        */
 
         if (flags.requiresRecoveryOptionsSet && !pageSet) {
-            page = "recoveryOptions"
+            page = "setRecoveryOptions"
             pageSet = true;
             flags.requiresRecoveryOptionsSet = false;
         }

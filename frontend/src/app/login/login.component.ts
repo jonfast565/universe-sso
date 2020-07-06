@@ -29,6 +29,7 @@ import {
 import {
     AuthServiceService
 } from '../auth-service.service';
+import { FieldBuilderService } from '../field-builder.service';
 
 @Component({
     selector: 'app-login',
@@ -37,20 +38,23 @@ import {
 })
 export class LoginComponent implements OnInit {
 
+    // form fields, required
     public providerName: string = null;
     public provider: ProviderViewModel = null;
     public fields: FieldModel[] = [];
     public fieldFormControls: FieldFormControl[] = [];
     public isLoading: boolean = false;
-    public isLoggingIn: boolean = false;
     public form: FormGroup = null;
+
+    public isLoggingIn: boolean = false;
     public rememberMe: boolean = false;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
         private loginApi: LoginApiService,
         private navigation: NavigationStateMachineService,
-        private authService: AuthServiceService) {
+        private authService: AuthServiceService,
+        private fieldBuildService: FieldBuilderService) {
         this.handleSelectProviderRedirect(router);
     }
 
@@ -72,53 +76,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadProvider();
-    }
-
-    private loadProvider() {
-        this.isLoading = true;
-        this.loginApi.getProvider(this.providerName)
-            .subscribe({
-                next: provider => {
-                    this.provider = provider;
-                    this.loadFields();
-                },
-                error: error => {
-                    console.log(error)
-                    this.isLoading = false;
-                }
-            });
-    }
-
-    private loadFields() {
-        this.loginApi.getFields(this.provider.name, 'Login').subscribe(fields => {
-            this.fields = fields;
-            this.initializeFields();
-            this.isLoading = false;
-        });
-    }
-
-    private initializeFields() {
-        let fieldMap = {};
-        this.fields.forEach(field => {
-            let validators = [];
-
-            if (field.required) {
-                validators.push(Validators.required);
-            }
-
-            if (field.pattern) {
-                validators.push(Validators.pattern(field.pattern));
-            }
-
-            let fieldFormControl = new FieldFormControl();
-            fieldFormControl.field = field;
-            fieldFormControl.control = new FormControl('', validators);
-            fieldMap[field.fieldName] = fieldFormControl.control;
-            this.fieldFormControls.push(fieldFormControl);
-        });
-
-        this.form = new FormGroup(fieldMap);
+        this.fieldBuildService.loadProvider(this, 'Login');
     }
 
     onChangeRememberMe(e: {
@@ -135,14 +93,14 @@ export class LoginComponent implements OnInit {
         var fields = {};
 
         // disable fields and push fields
-        this.disableFields(this.form, fields);
+        this.fieldBuildService.disableFields(this, this.form, fields);
         // set remember me
         fields['RememberMe'] = this.rememberMe;
 
         this.loginApi.login(this.providerName, fields).subscribe({
             next: result => {
                 // TODO: What to do?
-                this.enableFields(this.form);
+                this.fieldBuildService.enableFields(this, this.form);
                 this.isLoggingIn = false;
 
                 // set auth flags cookie
@@ -151,23 +109,10 @@ export class LoginComponent implements OnInit {
             },
             error: error => {
                 // re-enable fields
-                this.enableFields(this.form);
+                this.fieldBuildService.enableFields(this, this.form);
                 this.isLoggingIn = false;
                 this.navigation.navigateToErrorPage(error);
             }
-        });
-    }
-
-    private disableFields(form: FormGroup, fields: {}) {
-        this.fields.forEach(field => {
-            form.controls[field.fieldName].disable();
-            fields[field.fieldName] = form.controls[field.fieldName].value;
-        });
-    }
-
-    private enableFields(form: FormGroup) {
-        this.fields.forEach(field => {
-            form.controls[field.fieldName].enable();
         });
     }
 }

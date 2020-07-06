@@ -26,8 +26,8 @@ import {
     LoginComponent
 } from './login/login.component';
 import {
-    RecoveryOptionsComponent
-} from './recovery-options/recovery-options.component';
+    SetRecoveryOptionsComponent
+} from './set-recovery-options/set-recovery-options.component';
 import {
     PageNotFoundComponent
 } from './page-not-found/page-not-found.component';
@@ -52,7 +52,7 @@ import { AccountLockedComponent } from './account-locked/account-locked.componen
         AppComponent,
         SelectProviderComponent,
         LoginComponent,
-        RecoveryOptionsComponent,
+        SetRecoveryOptionsComponent,
         PageNotFoundComponent,
         ResetCredentialComponent,
         TwoFactorComponent,
