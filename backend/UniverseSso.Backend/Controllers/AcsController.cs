@@ -11,5 +11,10 @@ namespace UniverseSso.Backend.Controllers
     [ApiController]
     public class AcsController : ControllerBase
     {
+        [Route("accept")]
+        public void AcceptSaml()
+        {
+
+        }
     }
 }

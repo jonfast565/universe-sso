@@ -11,5 +11,10 @@ namespace UniverseSso.Backend.Controllers
     [ApiController]
     public class SsoController : ControllerBase
     {
+        [Route("auth")]
+        public void SendAuthenticationRequest()
+        {
+
+        }
     }
 }
