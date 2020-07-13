@@ -1,0 +1,40 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: "Checkout"
+    - uses: actions/checkout@v2
+      
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.1.0
+      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    
+    - name: "Install client libraries"
+      run: npm install
+      working-directory: "./frontend"
+    
+    - name: "Build Angular project"
+      run: npm build
+      working-directory: "./frontend"
+      
+    - name: Install .NET dependencies
+      run: dotnet restore
+      working-directory: "./backend"
+      
+    - name: Build .NET project
+      run: dotnet build --configuration Release --no-restore
+      working-directory: "./backend"
+      
