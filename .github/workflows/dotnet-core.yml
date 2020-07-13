@@ -27,7 +27,7 @@ jobs:
       working-directory: "./frontend"
     
     - name: "Build Angular project"
-      run: npm build
+      run: npm run-script build
       working-directory: "./frontend"
       
     - name: Install .NET dependencies
