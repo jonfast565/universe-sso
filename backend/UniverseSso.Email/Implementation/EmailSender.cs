@@ -112,18 +112,18 @@ namespace UniverseSso.Email.Implementation
             var sc = new SmtpClient
             {
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Host = batchConfiguration.EmailSmtpHost,
-                EnableSsl = batchConfiguration.EmailEnableSsl,
-                Port = batchConfiguration.EmailSmtpPort,
-                UseDefaultCredentials = batchConfiguration.EmailUseDefaultCredentials
+                Host = batchConfiguration.Email.SmtpHost,
+                EnableSsl = batchConfiguration.Email.EnableSsl,
+                Port = batchConfiguration.Email.SmtpPort,
+                UseDefaultCredentials = batchConfiguration.Email.UseDefaultCredentials
             };
 
-            if (batchConfiguration.EmailUsername != null
-                && batchConfiguration.EmailPassword != null)
+            if (batchConfiguration.Email.Username != null
+                && batchConfiguration.Email.Password != null)
             {
                 sc.Credentials = new NetworkCredential(
-                    batchConfiguration.EmailUsername,
-                    batchConfiguration.EmailPassword);
+                    batchConfiguration.Email.Username,
+                    batchConfiguration.Email.Password);
             }
 
             return sc;
