@@ -1,0 +1,34 @@
+﻿<?xml version="1.0"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" validUntil="2020-09-20T21:51:04Z" cacheDuration="PT1601070664S" entityID="SAMLTestEpic">
+  <md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIDCTCCAfGgAwIBAgIUBKNFdPPk3PzAz8K0E4fpr3O7odUwDQYJKoZIhvcNAQELBQAwFDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTIwMDkxODIxNDc1MVoXDTMwMDkxNjIxNDc1MVowFDESMBAGA1UEAwwJbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv8X2tgYcHfffr+NfaspOMe/xzRXFaxse5G8+Mra7nP8pRLEPRBgLPt2h91VdzJpbAijDLCicy+AyYZJXGCTSGixKJJG7GLXvZv0dDFTnDHdSAF5oMmFuPYPI/vJhM0Me4cS6tyOPSN/HPmLJTOROcwEQy0YylRB3xzxUPv816ih9aQz3jg+v58siYdEf1Ur2B68xbhn6ursvpY1bRhsoGLiApHsYQc0sbjho8j1kolr+upsojOnHzXR5sPcDKSqo3gig11utoPViz5FiZPBE8Q/OdXIHpgkcxJ2qk+cAe9sde27E22TNdLeOs7r8lhxa+sK36LZ7wiWjinaK1aPcxwIDAQABo1MwUTAdBgNVHQ4EFgQU0T1Jhc0xD8tZiCKmahjylZEbVLUwHwYDVR0jBBgwFoAU0T1Jhc0xD8tZiCKmahjylZEbVLUwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAZomGpX1rSyQJoTvl3AwM4e1PQ/mzhzRgQGTYDbkmTXTURTSy4BqJOziNdNTHf5bIEaq7ADQjU66lSMdJnhBEV9Szyrp6T5Y6e/PlUwIYBbDgmVg5teOtlnWns4YnFMlIWpysb1UD6yzXKaOK+68h4Wp5nOM7YcJtJ9Mi+fwMQvG/jhuVj5f+t+AM19PZr2/VPseIC7YyUdzjAKJCns0QXJAMXhiY4M9CyydHkD5/dBZsd3D/8CGy7CE90MdycO1Mo4VCT9PUPPhARmBLLdd96s2TPDytCY/DnobyvZybEGHvOBJObIUPOGLPTV43qM5v6RLPEChCPSXUep83t54NsQ==</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:KeyDescriptor use="encryption">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIDCTCCAfGgAwIBAgIUBKNFdPPk3PzAz8K0E4fpr3O7odUwDQYJKoZIhvcNAQELBQAwFDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTIwMDkxODIxNDc1MVoXDTMwMDkxNjIxNDc1MVowFDESMBAGA1UEAwwJbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv8X2tgYcHfffr+NfaspOMe/xzRXFaxse5G8+Mra7nP8pRLEPRBgLPt2h91VdzJpbAijDLCicy+AyYZJXGCTSGixKJJG7GLXvZv0dDFTnDHdSAF5oMmFuPYPI/vJhM0Me4cS6tyOPSN/HPmLJTOROcwEQy0YylRB3xzxUPv816ih9aQz3jg+v58siYdEf1Ur2B68xbhn6ursvpY1bRhsoGLiApHsYQc0sbjho8j1kolr+upsojOnHzXR5sPcDKSqo3gig11utoPViz5FiZPBE8Q/OdXIHpgkcxJ2qk+cAe9sde27E22TNdLeOs7r8lhxa+sK36LZ7wiWjinaK1aPcxwIDAQABo1MwUTAdBgNVHQ4EFgQU0T1Jhc0xD8tZiCKmahjylZEbVLUwHwYDVR0jBBgwFoAU0T1Jhc0xD8tZiCKmahjylZEbVLUwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAZomGpX1rSyQJoTvl3AwM4e1PQ/mzhzRgQGTYDbkmTXTURTSy4BqJOziNdNTHf5bIEaq7ADQjU66lSMdJnhBEV9Szyrp6T5Y6e/PlUwIYBbDgmVg5teOtlnWns4YnFMlIWpysb1UD6yzXKaOK+68h4Wp5nOM7YcJtJ9Mi+fwMQvG/jhuVj5f+t+AM19PZr2/VPseIC7YyUdzjAKJCns0QXJAMXhiY4M9CyydHkD5/dBZsd3D/8CGy7CE90MdycO1Mo4VCT9PUPPhARmBLLdd96s2TPDytCY/DnobyvZybEGHvOBJObIUPOGLPTV43qM5v6RLPEChCPSXUep83t54NsQ==</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://localhost:5000/sso"/>
+  </md:IDPSSODescriptor>
+  <md:Organization>
+    <md:OrganizationName xml:lang="en-US">ACC</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="en-US">American College Of Cardiology</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="en-US">https://www.acc.org</md:OrganizationURL>
+  </md:Organization>
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>Jon Fast</md:GivenName>
+    <md:EmailAddress>jfast@acc.org</md:EmailAddress>
+  </md:ContactPerson>
+  <md:ContactPerson contactType="support">
+    <md:GivenName>Jon Fast</md:GivenName>
+    <md:EmailAddress>jfast@acc.org</md:EmailAddress>
+  </md:ContactPerson>
+</md:EntityDescriptor>

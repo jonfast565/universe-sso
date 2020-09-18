@@ -8,6 +8,7 @@ namespace UniverseSso.Entities
         public Provider()
         {
             Field = new HashSet<Field>();
+            Session = new HashSet<Session>();
         }
 
         public int ProviderId { get; set; }
@@ -21,5 +22,6 @@ namespace UniverseSso.Entities
         public string UpdatedBy { get; set; }
 
         public virtual ICollection<Field> Field { get; set; }
+        public virtual ICollection<Session> Session { get; set; }
     }
 }

@@ -18,13 +18,15 @@ namespace UniverseSso.Entities
         public virtual DbSet<AuthenticationStrategy> AuthenticationStrategy { get; set; }
         public virtual DbSet<Field> Field { get; set; }
         public virtual DbSet<Provider> Provider { get; set; }
+        public virtual DbSet<Session> Session { get; set; }
+        public virtual DbSet<SpMetadata> SpMetadata { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=LoginDb;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Data Source=entbuild1;Initial Catalog=LoginDb;Trusted_Connection=True");
             }
         }
 
@@ -91,7 +93,7 @@ namespace UniverseSso.Entities
                     .WithMany(p => p.Field)
                     .HasForeignKey(d => d.ProviderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Field__ProviderI__34C8D9D1");
+                    .HasConstraintName("FK__Field__ProviderI__4222D4EF");
             });
 
             modelBuilder.Entity<Provider>(entity =>
@@ -121,6 +123,85 @@ namespace UniverseSso.Entities
                 entity.Property(e => e.UpdatedDatetime)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<Session>(entity =>
+            {
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(suser_name())");
+
+                entity.Property(e => e.CreatedDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.SessionData).IsRequired();
+
+                entity.Property(e => e.SessionToken)
+                    .IsRequired()
+                    .HasDefaultValueSql("(hashbytes('MD5',CONVERT([nvarchar],getdate())))");
+
+                entity.Property(e => e.UpdatedBy)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.UpdatedDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Provider)
+                    .WithMany(p => p.Session)
+                    .HasForeignKey(d => d.ProviderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Session__Provide__4316F928");
+            });
+
+            modelBuilder.Entity<SpMetadata>(entity =>
+            {
+                entity.HasKey(e => e.IdpMetadataId)
+                    .HasName("PK__SpMetada__9C4CE8E01DBB97FF");
+
+                entity.HasIndex(e => e.EntityId)
+                    .HasName("UQ__SpMetada__9C892F9C4180BAD0")
+                    .IsUnique();
+
+                entity.Property(e => e.AcsBinding)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.AcsLocation).IsRequired();
+
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(suser_name())");
+
+                entity.Property(e => e.CreatedDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.EntityId)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.NameIdFormats).IsRequired();
+
+                entity.Property(e => e.ProtocolSupportEnumeration)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.UpdatedBy)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.UpdatedDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.ValidUntil).HasColumnType("datetime");
             });
 
             OnModelCreatingPartial(modelBuilder);

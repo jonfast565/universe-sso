@@ -63,5 +63,7 @@
     <Build Include="Tables\Field.sql" />
     <Build Include="Tables\AuthenticationStrategy.sql" />
     <Build Include="Tables\Session.sql" />
+    <Build Include="Tables\SpMetadata.sql" />
+    <Build Include="Tables\IdpMetadata.sql" />
   </ItemGroup>
 </Project>
