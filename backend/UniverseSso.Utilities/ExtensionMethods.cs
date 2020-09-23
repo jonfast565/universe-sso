@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Security;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace UniverseSso.Utilities
@@ -46,6 +49,38 @@ namespace UniverseSso.Utilities
             }
 
             return result;
+        }
+
+        public static byte[] ZipStr(string str)
+        {
+            using var output = new MemoryStream();
+            using (var gzip = new DeflateStream(output, CompressionMode.Compress))
+            {
+                using var writer = new StreamWriter(gzip, Encoding.UTF8);
+                writer.Write(str);
+            }
+
+            return output.ToArray();
+        }
+
+        public static string UnZipBytes(byte[] input)
+        {
+            using var inputStream = new MemoryStream(input);
+            using var gzip = new DeflateStream(inputStream, CompressionMode.Decompress);
+            using var reader = new StreamReader(gzip, Encoding.UTF8);
+            return reader.ReadToEnd();
+        }
+
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            return Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static byte[] Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
+            return base64EncodedBytes;
         }
     }
 }
