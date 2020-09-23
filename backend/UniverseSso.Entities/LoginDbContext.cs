@@ -17,6 +17,7 @@ namespace UniverseSso.Entities
 
         public virtual DbSet<AuthenticationStrategy> AuthenticationStrategy { get; set; }
         public virtual DbSet<Field> Field { get; set; }
+        public virtual DbSet<IdpMetadata> IdpMetadata { get; set; }
         public virtual DbSet<Provider> Provider { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<SpMetadata> SpMetadata { get; set; }
@@ -93,7 +94,50 @@ namespace UniverseSso.Entities
                     .WithMany(p => p.Field)
                     .HasForeignKey(d => d.ProviderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Field__ProviderI__4222D4EF");
+                    .HasConstraintName("FK__Field__ProviderI__47DBAE45");
+            });
+
+            modelBuilder.Entity<IdpMetadata>(entity =>
+            {
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(suser_name())");
+
+                entity.Property(e => e.CreatedDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.EncryptionCertificate).IsRequired();
+
+                entity.Property(e => e.EntityId)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.NameIdFormats).IsRequired();
+
+                entity.Property(e => e.ProtocolSupportEnumeration)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.SigningCertificate).IsRequired();
+
+                entity.Property(e => e.SsoBinding)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.SsoLocation)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.UpdatedBy)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.UpdatedDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<Provider>(entity =>
@@ -155,16 +199,13 @@ namespace UniverseSso.Entities
                     .WithMany(p => p.Session)
                     .HasForeignKey(d => d.ProviderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Session__Provide__4316F928");
+                    .HasConstraintName("FK__Session__Provide__48CFD27E");
             });
 
             modelBuilder.Entity<SpMetadata>(entity =>
             {
-                entity.HasKey(e => e.IdpMetadataId)
-                    .HasName("PK__SpMetada__9C4CE8E01DBB97FF");
-
                 entity.HasIndex(e => e.EntityId)
-                    .HasName("UQ__SpMetada__9C892F9C4180BAD0")
+                    .HasName("UQ__SpMetada__9C892F9C54C88F84")
                     .IsUnique();
 
                 entity.Property(e => e.AcsBinding)

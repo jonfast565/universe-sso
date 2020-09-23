@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Linq;
-using saml_schema_assertion_2_0.saml;
 using saml_schema_metadata_2_0.md;
 using UniverseSso.Entities;
 
@@ -13,13 +12,18 @@ namespace UniverseSso.DataLoader
     {
         static async Task Main(string[] args)
         {
-            // await LoadProvidersAndFields();
+            await LoadProvidersAndFields();
             await LoadSpMetadata();
+            await LoadIdpMetadata();
         }
 
         private static async Task LoadSpMetadata()
         {
             var loginDatabase = new LoginDbContext();
+
+            // loginDatabase.SpMetadata.Clear();
+            // await loginDatabase.SaveChangesAsync();
+
             var client = new HttpClient();
             var response = await client.GetAsync(new Uri("https://sptest.iamshowcase.com/testsp_metadata.xml"));
             var xmlResponse = await response.Content.ReadAsStringAsync();
@@ -38,7 +42,7 @@ namespace UniverseSso.DataLoader
                     var acsLocation = spSsoDescriptor.AssertionConsumerService[0].Location.Value;
                     var nameIdFormats = spSsoDescriptor.NameIDFormat.First.Value;
 
-                    var idpMetadata = new SpMetadata()
+                    var spMetadata = new SpMetadata
                     {
                         AcsBinding = acsBinding,
                         AcsLocation = acsLocation,
@@ -50,7 +54,7 @@ namespace UniverseSso.DataLoader
                         ValidUntil = validUntil.GetDateTime(true)
                     };
 
-                    await loginDatabase.SpMetadata.AddAsync(idpMetadata);
+                    await loginDatabase.SpMetadata.AddAsync(spMetadata);
 
                     await loginDatabase.SaveChangesAsync();
                 }
@@ -61,28 +65,59 @@ namespace UniverseSso.DataLoader
         private static async Task LoadIdpMetadata()
         {
             var loginDatabase = new LoginDbContext();
+
+            // loginDatabase.IdpMetadata.Clear();
+            // await loginDatabase.SaveChangesAsync();
+
             var xml = await File.ReadAllTextAsync("./idp_metadata.xml");
             Console.WriteLine(xml);
             var saml2Metadata = saml_schema_metadata_2_02.LoadFromString(xml);
             foreach (EntityDescriptorType entityDescriptor in saml2Metadata.EntityDescriptor)
             {
+                var entityId = entityDescriptor.entityID.Value;
+                // var validUntil = entityDescriptor.validUntil.Value;
+
                 foreach (IDPSSODescriptorType idpSsoDescriptor in entityDescriptor.IDPSSODescriptor)
                 {
+                    var protocolAssertion = idpSsoDescriptor.protocolSupportEnumeration.Value;
+                    var wantAuthnRequestsSigned = idpSsoDescriptor.WantAuthnRequestsSigned.Value;
+                    var ssoBinding = idpSsoDescriptor.SingleSignOnService[0].Binding.Value;
+                    var ssoLocation = idpSsoDescriptor.SingleSignOnService[0].Location.Value;
+                    var nameIdFormats = idpSsoDescriptor.NameIDFormat.First.Value;
+
+                    var certs = new Dictionary<string, byte[]>();
                     foreach (KeyDescriptorType keyDescriptor in idpSsoDescriptor.KeyDescriptor)
                     {
                         var descriptorType = keyDescriptor.use.Value;
-                        keyDescriptor.KeyInfo.First.X509Data.First.X509Certificate.First.Value;
+                        var certificate = keyDescriptor.KeyInfo.First.X509Data.First.X509Certificate.First.Value;
+                        certs[descriptorType] = certificate;
                     }
+
+                    var idpMetadata = new IdpMetadata
+                    {
+                        EntityId = entityId,
+                        WantAuthnRequestsSigned = wantAuthnRequestsSigned,
+                        ProtocolSupportEnumeration = protocolAssertion,
+                        SigningCertificate = certs["signing"],
+                        EncryptionCertificate = certs["encryption"],
+                        NameIdFormats = nameIdFormats,
+                        SsoBinding = ssoBinding,
+                        SsoLocation = ssoLocation
+                    };
+
+                    await loginDatabase.IdpMetadata.AddAsync(idpMetadata);
+                    await loginDatabase.SaveChangesAsync();
                 }
             }
         }
 
-private static async Task LoadProvidersAndFields()
+        private static async Task LoadProvidersAndFields()
         {
             var loginDatabase = new LoginDbContext();
 
             // loginDatabase.Provider.Clear();
             // loginDatabase.Field.Clear();
+            // await loginDatabase.SaveChangesAsync();
 
             var accProvider = new Provider
             {
