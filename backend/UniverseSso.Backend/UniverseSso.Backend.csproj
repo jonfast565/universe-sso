@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\saml\saml_schema_assertion_2_0\saml_schema_assertion_2_0.csproj" />
     <ProjectReference Include="..\..\saml\saml_schema_protocol_2_0\saml_schema_protocol_2_0.csproj" />
     <ProjectReference Include="..\UniverseSso.Authenticators.Acc\UniverseSso.Authenticators.Acc.csproj" />
     <ProjectReference Include="..\UniverseSso.Authenticators.Ncdr\UniverseSso.Authenticators.Ncdr.csproj" />

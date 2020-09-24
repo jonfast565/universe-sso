@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +27,7 @@ namespace UniverseSso.Backend
             services.AddDbContext<LoginDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LoginConnectionString")));
             services.AddTransient<IBackendConfiguration, BackendConfiguration>();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +39,7 @@ namespace UniverseSso.Backend
             }
 
             app.UseRouting();
+            app.UseMvc();
 
             // app.UseAuthorization();
 

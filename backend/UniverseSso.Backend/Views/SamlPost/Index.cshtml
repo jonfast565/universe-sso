@@ -1,0 +1,19 @@
+﻿@model object
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Saml Response Post</title>
+    <!-- <script>window.onload = function () { document.forms[0].submit(); }</script> -->
+</head>
+<body>
+    <form method="post" action="@ViewBag.ACSUrl">
+        <input type="hidden" name="@ViewBag.SamlParameterName" value="'@ViewBag.EncodedSaml'" />
+    </form>
+</body>
+</html>

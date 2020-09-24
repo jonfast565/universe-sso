@@ -71,10 +71,9 @@ namespace UniverseSso.Utilities
             return reader.ReadToEnd();
         }
 
-        public static string Base64Encode(string plainText)
+        public static string Base64Encode(byte[] bytes)
         {
-            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-            return Convert.ToBase64String(plainTextBytes);
+            return Convert.ToBase64String(bytes);
         }
 
         public static byte[] Base64Decode(string base64EncodedData)
