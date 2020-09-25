@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -18,20 +19,35 @@ namespace UniverseSso.Backend.Controllers.Mvc
         {
             var inflatedSaml = DecodeInflateSaml(samlRequest);
             var parsedSamlRequest = ParseSamlRequest(inflatedSaml);
-            var samlResponseDocument = BuildSamlResponse();
+            
+            var samlResponseDocument = BuildSamlResponse(parsedSamlRequest, new Dictionary<string, string>()
+            {
+                {"FirstName", "Jon"},
+                {"LastName", "Fast"},
+                {"SessionInfos", "Something"}
+            });
+
             var encodedSaml = EncodeDeflateSaml(samlResponseDocument);
-
-            ViewBag.ACSUrl = parsedSamlRequest.AcsUrl;
-            ViewBag.SamlParameterName = "SAMLResponse";
-            ViewBag.EncodedSaml = encodedSaml;
-
+            SetSamlInViewBag(parsedSamlRequest, encodedSaml, relayState);
+            
             return View();
         }
 
-        private static string BuildSamlResponse()
+        private void SetSamlInViewBag(SamlRequest parsedSamlRequest, string encodedSaml, string relayState)
+        {
+            ViewBag.ACSUrl = parsedSamlRequest.AcsUrl;
+            ViewBag.SamlParameterName = "SAMLResponse";
+            ViewBag.EncodedSaml = encodedSaml;
+            ViewBag.RelayState = relayState;
+        }
+
+        private static string BuildSamlResponse(SamlRequest r, Dictionary<string, string> attributes)
         {
             var samlResponseDocument = saml_schema_protocol_2_02.CreateDocument();
             var response = samlResponseDocument.Response.Append();
+            var now = DateTime.Now;
+            var nowWindowBegin = DateTime.Now.AddMinutes(-5);
+            var nowWindowEnd = DateTime.Now.AddMinutes(5);
 
             var issuer = response.Issuer.Append();
             issuer.Value = "https://localhost:5000/md";
@@ -41,25 +57,54 @@ namespace UniverseSso.Backend.Controllers.Mvc
             statusCode.Value2.Value = "urn:oasis:names:tc:SAML:2.0:status:Success";
 
             var assertion = response.Assertion.Append();
+            assertion.ID.Value = Utilities.ExtensionMethods.ComputeSha256Hash(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            assertion.Version.Value = "2.0";
+            assertion.IssueInstant.Value = new Altova.Types.DateTime(now);
+
             var assertionIssuer = assertion.Issuer.Append();
             assertionIssuer.Value = "https://localhost:5000/md";
 
-            //var subject = assertion.Subject.Append();
-            //var conditions = assertion.Conditions.Append();
-            //var authnStatement = assertion.AuthnStatement.Append();
+            var subject = assertion.Subject.Append();
+            var subjectNameId = subject.NameID.Append();
+            subjectNameId.Format.Value = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient";
+            subjectNameId.Value = Guid.NewGuid().ToString();
+
+            var subjectConfirmation = subject.SubjectConfirmation.Append();
+            subjectConfirmation.Method.Value = "urn:oasis:names:tc:SAML:2.0:cm:bearer";
+
+            var subjectConfirmationData = subjectConfirmation.SubjectConfirmationData.Append();
+            subjectConfirmationData.InResponseTo.Value = r.ID;
+            subjectConfirmationData.Recipient.Value = r.DestinationUrl;
+            subjectConfirmationData.NotBefore.Value = new Altova.Types.DateTime(nowWindowBegin);
+            subjectConfirmationData.NotOnOrAfter.Value = new Altova.Types.DateTime(nowWindowEnd);
+
+            var conditions = assertion.Conditions.Append();
+            conditions.NotBefore.Value = new Altova.Types.DateTime(nowWindowBegin);
+            conditions.NotOnOrAfter.Value = new Altova.Types.DateTime(nowWindowEnd);
+            conditions.AudienceRestriction.Append().Audience.Append().Value = r.AcsUrl;
+
+            var authnStatement = assertion.AuthnStatement.Append();
+            authnStatement.AuthnInstant.Value = Altova.Types.DateTime.Now;
+            authnStatement.SessionIndex.Value = "Session ID";
             var attributeStatement = assertion.AttributeStatement.Append();
 
-            var firstNameAttribute = attributeStatement.Attribute.Append();
-            firstNameAttribute.NameFormat.Value = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic";
-            firstNameAttribute.Name.Value = "FirstName";
-            firstNameAttribute.AttributeValue.Append().Value = "Jon";
-            firstNameAttribute.SetXsiType();
+            // TODO: Determine whether this is necessary
+            var authnContext = authnStatement.AuthnContext.Append();
+            var authnContextClass = authnContext.AuthnContextClassRef.Append();
+            authnContextClass.Value = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport";
 
-            var lastNameAttribute = attributeStatement.Attribute.Append();
-            lastNameAttribute.NameFormat.Value = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic";
-            lastNameAttribute.Name.Value = "LastName";
-            lastNameAttribute.AttributeValue.Append().Value = "Fast";
-            lastNameAttribute.SetXsiType();
+            void AddAttribute(string key, string value)
+            {
+                var attribute = attributeStatement.Attribute.Append();
+                attribute.NameFormat.Value = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic";
+                attribute.Name.Value = key;
+                attribute.AttributeValue.Append().Value = value;
+            }
+
+            foreach (var (key, value) in attributes)
+            {
+                AddAttribute(key, value);
+            }
 
             var document = samlResponseDocument.SaveToString(false, true);
             return document;

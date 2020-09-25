@@ -9,12 +9,15 @@
 <html>
 <head>
     <title>Saml Response Post</title>
-    <!-- <script>window.onload = function () { document.forms[0].submit(); }</script> -->
+    <script>window.onload = function () { setTimeout(function () { document.forms[0].submit(); }, 100); }</script>
 </head>
 <body>
     <form method="post" action="@ViewBag.ACSUrl">
         <input type="hidden" name="@ViewBag.SamlParameterName" value="'@ViewBag.EncodedSaml'" />
-        <button type="submit">Submit</button>
+    @if (ViewBag.RelayState != null) {
+        <input type="hidden" name="RelayState" value="@ViewBag.RelayState"/>
+    }
+        <button type="submit" style="display: none">Submit</button>
     </form>
 </body>
 </html>

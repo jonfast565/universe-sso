@@ -21,14 +21,17 @@ namespace UniverseSso.DataLoader
         {
             var loginDatabase = new LoginDbContext();
 
-            // loginDatabase.SpMetadata.Clear();
-            // await loginDatabase.SaveChangesAsync();
+            loginDatabase.SpMetadata.Clear();
+            await loginDatabase.SaveChangesAsync();
 
             var client = new HttpClient();
             var response = await client.GetAsync(new Uri("https://sptest.iamshowcase.com/testsp_metadata.xml"));
+
             var xmlResponse = await response.Content.ReadAsStringAsync();
             Console.WriteLine(xmlResponse);
+
             var saml2Metadata = saml_schema_metadata_2_02.LoadFromString(xmlResponse);
+
             foreach (EntityDescriptorType entityDescriptor in saml2Metadata.EntityDescriptor)
             {
                 foreach (SPSSODescriptorType spSsoDescriptor in entityDescriptor.SPSSODescriptor)
@@ -66,8 +69,8 @@ namespace UniverseSso.DataLoader
         {
             var loginDatabase = new LoginDbContext();
 
-            // loginDatabase.IdpMetadata.Clear();
-            // await loginDatabase.SaveChangesAsync();
+            loginDatabase.IdpMetadata.Clear();
+            await loginDatabase.SaveChangesAsync();
 
             var xml = await File.ReadAllTextAsync("./idp_metadata.xml");
             Console.WriteLine(xml);
@@ -115,9 +118,9 @@ namespace UniverseSso.DataLoader
         {
             var loginDatabase = new LoginDbContext();
 
-            // loginDatabase.Provider.Clear();
-            // loginDatabase.Field.Clear();
-            // await loginDatabase.SaveChangesAsync();
+            loginDatabase.Provider.Clear();
+            loginDatabase.Field.Clear();
+            await loginDatabase.SaveChangesAsync();
 
             var accProvider = new Provider
             {
