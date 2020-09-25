@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Entities", "bac
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Saml", "Saml", "{604AC262-E035-4EEC-8E33-A77B2C192C52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltovaXML", "saml\AltovaXML\AltovaXML.csproj", "{03AAA791-EC2D-4A90-ABBF-45337E52DFD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltovaXML", "saml\AltovaXML\AltovaXML.csproj", "{03AAA791-EC2D-4A90-ABBF-45337E52DFD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altova", "saml\Altova\Altova.csproj", "{D43E6C54-2DF5-454E-9566-DFFE2F3A6946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altova", "saml\Altova\Altova.csproj", "{D43E6C54-2DF5-454E-9566-DFFE2F3A6946}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Token Builders", "Token Builders", "{06C61EAD-7EEE-424C-B5E3-6614DBCCCF79}"
 EndProject
@@ -39,9 +39,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Configuration",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniverseSso.Email", "backend\UniverseSso.Email\UniverseSso.Email.csproj", "{4E6CA69D-9B0C-49EF-B67C-40C64B474F92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "saml_schema_metadata_2_0", "saml\saml_schema_metadata_2_0\saml_schema_metadata_2_0.csproj", "{8E9F12EC-BAFD-014D-A7E9-2F2B8B88979E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "saml_schema_metadata_2_0", "saml\saml_schema_metadata_2_0\saml_schema_metadata_2_0.csproj", "{8E9F12EC-BAFD-014D-A7E9-2F2B8B88979E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "saml_schema_protocol_2_0", "saml\saml_schema_protocol_2_0\saml_schema_protocol_2_0.csproj", "{DB573A78-106A-A940-BFCD-91A12BBBCE38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "saml_schema_protocol_2_0", "saml\saml_schema_protocol_2_0\saml_schema_protocol_2_0.csproj", "{DB573A78-106A-A940-BFCD-91A12BBBCE38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rd Party Libraries", "3rd Party Libraries", "{5BA269E4-5B96-4FFA-ADCB-A5DDA3C7B19B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,8 +127,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4B5126A2-D06D-4B7F-826F-70DE8C6394F7} = {604AC262-E035-4EEC-8E33-A77B2C192C52}
-		{03AAA791-EC2D-4A90-ABBF-45337E52DFD6} = {604AC262-E035-4EEC-8E33-A77B2C192C52}
-		{D43E6C54-2DF5-454E-9566-DFFE2F3A6946} = {604AC262-E035-4EEC-8E33-A77B2C192C52}
+		{03AAA791-EC2D-4A90-ABBF-45337E52DFD6} = {5BA269E4-5B96-4FFA-ADCB-A5DDA3C7B19B}
+		{D43E6C54-2DF5-454E-9566-DFFE2F3A6946} = {5BA269E4-5B96-4FFA-ADCB-A5DDA3C7B19B}
 		{618BEDB0-7D43-4134-B10A-A469C2C5EFE5} = {06C61EAD-7EEE-424C-B5E3-6614DBCCCF79}
 		{2F6950EE-C913-4017-94D3-5D0D1259D549} = {1217F2ED-0DEE-4C7B-9470-1D3129539EA0}
 		{3A1F54AE-D4EC-4F6C-9E56-F35FAFFC5B98} = {1217F2ED-0DEE-4C7B-9470-1D3129539EA0}

@@ -19,22 +19,25 @@ namespace UniverseSso.Backend.Controllers.Mvc
     {
         public ActionResult Index(string samlRequest, string relayState)
         {
-            var samlRequest = SamlBuilder.FromRequestString(samlRequest, relayState);
-            var samlResponse = SamlBuilder.FromRequestAttributes(samlRequest, new Dictionary<string, string> {{ "Some attribute", "Some value" }}, relayState);
+            var samlRequestObj = SamlBuilder.FromRequestString(samlRequest, relayState);
 
-            if (samlRequest.ProtocolBinding.Contains("HTTP-POST"))
+            var samlResponse = SamlBuilder.FromRequestAttributes(
+                samlRequestObj, 
+                new Dictionary<string, string> {{ "Some attribute", "Some value" }}, 
+                relayState);
+
+            if (samlRequestObj.IsHttpPostProtocolBinding())
             {
-                SetSamlPostTicketInViewBag(samlRequest.PostTicket);
+                SetSamlPostTicketInViewBag(samlResponse.PostTicket);
                 return View();
             } 
-            else if (samlRequest.ProtocolBinding.Contains("HTTP-REDIRECT"))
+            
+            if (samlRequestObj.IsHttpRedirectProtocolBinding())
             {
                 throw new NotImplementedException("HTTP-REDIRECT not implemented");
             }
-            else
-            {
-                throw new Exception($"Invalid SAML protocol binding: {samlRequest.ProtocolBinding}");
-            }
+            
+            throw new Exception($"Invalid SAML protocol binding: {samlRequestObj.ProtocolBinding}");
         }
 
         private void SetSamlPostTicketInViewBag(SamlPostTicket postTicket)

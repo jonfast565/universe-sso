@@ -13,5 +13,17 @@ namespace UniverseSso.Models.Implementation
         public string ID { get; set; }
         public string SamlVersion { get; set; }
         public DateTime IssueInstant { get; set; }
+
+        public bool IsHttpPostProtocolBinding()
+        {
+            // TODO: Fix this to include the entire name
+            return ProtocolBinding.Contains("HTTP-POST");
+        }
+
+        public bool IsHttpRedirectProtocolBinding()
+        {
+            // TODO: Fix this to include the entire name
+            return ProtocolBinding.Contains("HTTP-REDIRECT");
+        }
     }
 }
