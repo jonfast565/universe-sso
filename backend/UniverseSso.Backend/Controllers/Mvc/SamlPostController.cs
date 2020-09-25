@@ -45,10 +45,13 @@ namespace UniverseSso.Backend.Controllers.Mvc
         {
             var samlResponseDocument = saml_schema_protocol_2_02.CreateDocument();
             var response = samlResponseDocument.Response.Append();
+
+            // TODO: Remove hardcoded window (clock skew)
             var now = DateTime.Now;
             var nowWindowBegin = DateTime.Now.AddMinutes(-5);
             var nowWindowEnd = DateTime.Now.AddMinutes(5);
 
+            // TODO: Remove hardcoded url
             var issuer = response.Issuer.Append();
             issuer.Value = "https://localhost:5000/md";
 
@@ -61,6 +64,7 @@ namespace UniverseSso.Backend.Controllers.Mvc
             assertion.Version.Value = "2.0";
             assertion.IssueInstant.Value = new Altova.Types.DateTime(now);
 
+            // TODO: Remove hardcoded url
             var assertionIssuer = assertion.Issuer.Append();
             assertionIssuer.Value = "https://localhost:5000/md";
 
@@ -69,6 +73,7 @@ namespace UniverseSso.Backend.Controllers.Mvc
             subjectNameId.Format.Value = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient";
             subjectNameId.Value = Guid.NewGuid().ToString();
 
+            // TODO: Ensure subject confirmation is correct
             var subjectConfirmation = subject.SubjectConfirmation.Append();
             subjectConfirmation.Method.Value = "urn:oasis:names:tc:SAML:2.0:cm:bearer";
 
@@ -83,12 +88,15 @@ namespace UniverseSso.Backend.Controllers.Mvc
             conditions.NotOnOrAfter.Value = new Altova.Types.DateTime(nowWindowEnd);
             conditions.AudienceRestriction.Append().Audience.Append().Value = r.AcsUrl;
 
+            // TODO: Add Authz statement
+
+            // TODO: Add session id
             var authnStatement = assertion.AuthnStatement.Append();
             authnStatement.AuthnInstant.Value = Altova.Types.DateTime.Now;
             authnStatement.SessionIndex.Value = "Session ID";
             var attributeStatement = assertion.AttributeStatement.Append();
 
-            // TODO: Determine whether this is necessary
+            // TODO: Determine whether this is necessary, and if PasswordProtectedTransport is the correct value
             var authnContext = authnStatement.AuthnContext.Append();
             var authnContextClass = authnContext.AuthnContextClassRef.Append();
             authnContextClass.Value = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport";
