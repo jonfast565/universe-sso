@@ -23,7 +23,7 @@ namespace UniverseSso.Backend.Controllers.Mvc
 
             ViewBag.ACSUrl = parsedSamlRequest.AcsUrl;
             ViewBag.SamlParameterName = "SAMLResponse";
-            ViewBag.EncodedSaml = samlResponseDocument;
+            ViewBag.EncodedSaml = encodedSaml;
 
             return View();
         }
@@ -53,13 +53,15 @@ namespace UniverseSso.Backend.Controllers.Mvc
             firstNameAttribute.NameFormat.Value = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic";
             firstNameAttribute.Name.Value = "FirstName";
             firstNameAttribute.AttributeValue.Append().Value = "Jon";
+            firstNameAttribute.SetXsiType();
 
             var lastNameAttribute = attributeStatement.Attribute.Append();
             lastNameAttribute.NameFormat.Value = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic";
             lastNameAttribute.Name.Value = "LastName";
             lastNameAttribute.AttributeValue.Append().Value = "Fast";
+            lastNameAttribute.SetXsiType();
 
-            var document = samlResponseDocument.SaveToString(true);
+            var document = samlResponseDocument.SaveToString(false, true);
             return document;
         }
 
@@ -98,8 +100,9 @@ namespace UniverseSso.Backend.Controllers.Mvc
 
         private static string EncodeDeflateSaml(string xmlString)
         {
-            var deflatedSaml = Utilities.ExtensionMethods.ZipStr(xmlString);
-            var encodedSaml = Utilities.ExtensionMethods.Base64Encode(deflatedSaml);
+            // var deflatedSaml = Utilities.ExtensionMethods.ZipStr(xmlString);
+            // var encodedSaml = Utilities.ExtensionMethods.Base64Encode(deflatedSaml);
+            var encodedSaml = Utilities.ExtensionMethods.Base64Encode(Encoding.Default.GetBytes(xmlString));
             return encodedSaml;
         }
     }
