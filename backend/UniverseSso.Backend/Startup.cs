@@ -39,9 +39,8 @@ namespace UniverseSso.Backend
             }
 
             app.UseRouting();
+            
             app.UseMvc();
-
-            // app.UseAuthorization();
 
             app.UseStaticFiles();
 
