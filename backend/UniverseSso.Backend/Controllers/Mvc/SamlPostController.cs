@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Flurl;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using saml_schema_protocol_2_0.samlp;
@@ -17,10 +18,11 @@ namespace UniverseSso.Backend.Controllers.Mvc
     [Route("sso")]
     public class SamlPostController : Controller
     {
+        [HttpGet]
+        [HttpPost]
         public ActionResult Index(string samlRequest, string relayState)
         {
             var samlRequestObj = SamlBuilder.FromRequestString(samlRequest, relayState);
-
             var samlResponse = SamlBuilder.FromRequestAttributes(
                 samlRequestObj, 
                 new Dictionary<string, string> {{ "Some attribute", "Some value" }}, 
@@ -32,12 +34,25 @@ namespace UniverseSso.Backend.Controllers.Mvc
                 return View();
             } 
             
+            // ReSharper disable once InvertIf
             if (samlRequestObj.IsHttpRedirectProtocolBinding())
             {
-                throw new NotImplementedException("HTTP-REDIRECT not implemented");
+                var url = SetSamlRedirectInUrl(samlResponse.PostTicket);
+                Redirect(url);
             }
             
             throw new Exception($"Invalid SAML protocol binding: {samlRequestObj.ProtocolBinding}");
+        }
+
+        private string SetSamlRedirectInUrl(SamlPostTicket postTicket)
+        {
+            var url = postTicket.AcsUrl.SetQueryParams(new
+            {
+                SAMLResponse = postTicket.EncodedSaml,
+                postTicket.RelayState
+            });
+
+            return url;
         }
 
         private void SetSamlPostTicketInViewBag(SamlPostTicket postTicket)
