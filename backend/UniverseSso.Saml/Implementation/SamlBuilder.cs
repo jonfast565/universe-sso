@@ -114,7 +114,7 @@ namespace UniverseSso.Saml
         {
             var xml = saml_schema_protocol_2_02.LoadFromString(inflatedSaml);
             var authnRequest = xml.AuthnRequest.First;
-            var forceAuthn = authnRequest.ForceAuthn.Value;
+            // var forceAuthn = authnRequest.ForceAuthn?.Value;
             var acsUrl = authnRequest.AssertionConsumerServiceURL.Value;
             var destinationUrl = authnRequest.Destination.Value;
             var protocolBinding = authnRequest.ProtocolBinding.Value;
@@ -124,7 +124,7 @@ namespace UniverseSso.Saml
 
             var result = new SamlRequest
             {
-                ForceAuthn = forceAuthn,
+                ForceAuthn = /*forceAuthn ?? */ false,
                 AcsUrl = acsUrl,
                 DestinationUrl = destinationUrl,
                 ProtocolBinding = protocolBinding,
@@ -145,9 +145,9 @@ namespace UniverseSso.Saml
 
         private static string EncodeDeflateSaml(string xmlString)
         {
-            // var deflatedSaml = Utilities.ExtensionMethods.ZipStr(xmlString);
-            // var encodedSaml = Utilities.ExtensionMethods.Base64Encode(deflatedSaml);
-            var encodedSaml = Utilities.ExtensionMethods.Base64Encode(Encoding.Default.GetBytes(xmlString));
+            var deflatedSaml = Utilities.ExtensionMethods.ZipStr(xmlString);
+            var encodedSaml = Utilities.ExtensionMethods.Base64Encode(deflatedSaml);
+            //var encodedSaml = Utilities.ExtensionMethods.Base64Encode(Encoding.Default.GetBytes(xmlString));
             return encodedSaml;
         }
     }
