@@ -9,6 +9,7 @@ using Flurl;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using saml_schema_protocol_2_0.samlp;
+using UniverseSso.Entities;
 using UniverseSso.Models.Implementation;
 using UniverseSso.Saml;
 using UniverseSso.Saml.Implementation;
@@ -18,15 +19,28 @@ namespace UniverseSso.Backend.Controllers.Mvc
     [Route("sso")]
     public class SamlPostController : Controller
     {
+        public LoginDbContext LoginDbContext { get; }
+
+        public SamlPostController(LoginDbContext loginDbContext)
+        {
+            LoginDbContext = loginDbContext;
+        }
+
         [HttpGet]
         [HttpPost]
         public ActionResult Index(string samlRequest, string relayState)
         {
-            var samlRequestObj = SamlBuilder.FromRequestString(samlRequest, relayState);
-            var samlResponse = SamlBuilder.FromRequestAttributes(
+            var samlRequestObj = SamlBuilder.GetSamlRequest(samlRequest, relayState);
+
+            var idpContext = LoginDbContext.IdpMetadata.First(x => x.SsoLocation == samlRequestObj.DestinationUrl);
+            var spContext = LoginDbContext.SpMetadata.First(x => x.AcsLocation == samlRequestObj.AcsUrl);
+
+            var samlResponse = SamlBuilder.GetSamlResponse(
                 samlRequestObj, 
                 new Dictionary<string, string> {{ "Some attribute", "Some value" }}, 
-                relayState);
+                relayState,
+                spContext.EntityId,
+                idpContext.SigningCertificate);
 
             if (samlRequestObj.IsHttpPostProtocolBinding())
             {

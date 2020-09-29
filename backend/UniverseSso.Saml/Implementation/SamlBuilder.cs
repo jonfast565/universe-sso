@@ -3,27 +3,36 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Xml;
+using Altova.TypeInfo;
+using saml_schema_metadata_2_0.md;
+using saml_schema_protocol_2_0.saml;
 using UniverseSso.Models.Implementation;
+using UniverseSso.Saml.Implementation;
+using UniverseSso.Utilities;
 
 namespace UniverseSso.Saml
 {
     public static class SamlBuilder
     {
-        public static SamlRequest FromRequestString(string samlRequest, string relayState)
+        private static string _langValue;
+
+        public static SamlRequest GetSamlRequest(string samlRequest, string relayState)
         {
             var inflatedSaml = DecodeInflateSaml(samlRequest);
             var parsedSamlRequest = ParseSamlRequest(inflatedSaml);
             return parsedSamlRequest;
         }
 
-        public static SamlResponse FromRequestAttributes(SamlRequest samlRequest, Dictionary<string, string> attributes, string relayState)
+        public static SamlResponse GetSamlResponse(SamlRequest samlRequest, Dictionary<string, string> attributes, string relayState, string provider, byte[] signingCertificate)
         {
-            var samlResponseDocument = BuildSamlResponse(samlRequest, attributes);
-            var encodedSaml = EncodeDeflateSaml(samlResponseDocument);
+            var samlResponseDocument = BuildSamlResponse(samlRequest, attributes, provider, signingCertificate);
+            var encodedSaml = EncodeSaml(samlResponseDocument);
             return new SamlResponse
             {
-                Request = samlRequest, 
-                PostTicket = new Implementation.SamlPostTicket
+                Request = samlRequest,
+                PostTicket = new SamlPostTicket
                 {
                     SamlParameterName = "SAMLResponse",
                     AcsUrl = samlRequest.AcsUrl,
@@ -33,32 +42,35 @@ namespace UniverseSso.Saml
             };
         }
 
-        private static string BuildSamlResponse(SamlRequest r, Dictionary<string, string> attributes)
+        private static string BuildSamlResponse(SamlRequest r, Dictionary<string, string> attributes, string provider, byte[] signingCertificate)
         {
+            // TODO: Remove hardcoded window (clock skew)
+            var now = DateTime.Now.ToUniversalTime();
+            var nowWindowBegin = DateTime.Now.AddMinutes(-5).ToUniversalTime();
+            var nowWindowEnd = DateTime.Now.AddMinutes(5).ToUniversalTime();
+
             var samlResponseDocument = saml_schema_protocol_2_02.CreateDocument();
             var response = samlResponseDocument.Response.Append();
-
-            // TODO: Remove hardcoded window (clock skew)
-            var now = DateTime.Now;
-            var nowWindowBegin = DateTime.Now.AddMinutes(-5);
-            var nowWindowEnd = DateTime.Now.AddMinutes(5);
+            response.ID.Value = ExtensionMethods.RandomHash();
+            response.Version.Value = "2.0";
+            response.IssueInstant.Value = new Altova.Types.DateTime(now);
 
             // TODO: Remove hardcoded url
             var issuer = response.Issuer.Append();
-            issuer.Value = "https://localhost:5000/md";
+            issuer.Value = provider;
 
             var status = response.Status.Append();
             var statusCode = status.StatusCode.Append();
             statusCode.Value2.Value = "urn:oasis:names:tc:SAML:2.0:status:Success";
 
             var assertion = response.Assertion.Append();
-            assertion.ID.Value = Utilities.ExtensionMethods.ComputeSha256Hash(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            assertion.ID.Value = ExtensionMethods.RandomHash();
             assertion.Version.Value = "2.0";
             assertion.IssueInstant.Value = new Altova.Types.DateTime(now);
 
             // TODO: Remove hardcoded url
             var assertionIssuer = assertion.Issuer.Append();
-            assertionIssuer.Value = "https://localhost:5000/md";
+            assertionIssuer.Value = provider;
 
             var subject = assertion.Subject.Append();
             var subjectNameId = subject.NameID.Append();
@@ -71,20 +83,23 @@ namespace UniverseSso.Saml
 
             var subjectConfirmationData = subjectConfirmation.SubjectConfirmationData.Append();
             subjectConfirmationData.InResponseTo.Value = r.ID;
-            subjectConfirmationData.Recipient.Value = r.DestinationUrl;
+            subjectConfirmationData.Recipient.Value = r.AcsUrl;
             subjectConfirmationData.NotBefore.Value = new Altova.Types.DateTime(nowWindowBegin);
             subjectConfirmationData.NotOnOrAfter.Value = new Altova.Types.DateTime(nowWindowEnd);
 
             var conditions = assertion.Conditions.Append();
             conditions.NotBefore.Value = new Altova.Types.DateTime(nowWindowBegin);
             conditions.NotOnOrAfter.Value = new Altova.Types.DateTime(nowWindowEnd);
-            conditions.AudienceRestriction.Append().Audience.Append().Value = r.AcsUrl;
+
+            // TODO: Removed audience restrictions b/c Shibboleth doesn't respect it on samltest.id 
+            // figure out why
+            // conditions.AudienceRestriction.Append().Audience.Append().Value = r.AcsUrl;
 
             // TODO: Add Authz statement
 
             // TODO: Add session id
             var authnStatement = assertion.AuthnStatement.Append();
-            authnStatement.AuthnInstant.Value = Altova.Types.DateTime.Now;
+            authnStatement.AuthnInstant.Value = new Altova.Types.DateTime(now);
             authnStatement.SessionIndex.Value = "Session ID";
             var attributeStatement = assertion.AttributeStatement.Append();
 
@@ -93,6 +108,14 @@ namespace UniverseSso.Saml
             var authnContextClass = authnContext.AuthnContextClassRef.Append();
             authnContextClass.Value = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport";
 
+            AppendSamlAttributesToAssertion(attributes, attributeStatement);
+
+            var document = samlResponseDocument.SaveToString(false, true);
+            return document;
+        }
+
+        private static void AppendSamlAttributesToAssertion(Dictionary<string, string> attributes, AttributeStatementType attributeStatement)
+        {
             void AddAttribute(string key, string value)
             {
                 var attribute = attributeStatement.Attribute.Append();
@@ -105,9 +128,6 @@ namespace UniverseSso.Saml
             {
                 AddAttribute(key, value);
             }
-
-            var document = samlResponseDocument.SaveToString(false, true);
-            return document;
         }
 
         private static SamlRequest ParseSamlRequest(string inflatedSaml)
@@ -143,12 +163,70 @@ namespace UniverseSso.Saml
             return inflatedSaml;
         }
 
-        private static string EncodeDeflateSaml(string xmlString)
+        private static string EncodeSaml(string xmlString)
         {
-            var deflatedSaml = Utilities.ExtensionMethods.ZipStr(xmlString);
-            var encodedSaml = Utilities.ExtensionMethods.Base64Encode(deflatedSaml);
-            //var encodedSaml = Utilities.ExtensionMethods.Base64Encode(Encoding.Default.GetBytes(xmlString));
+            var encodedSaml = Convert.ToBase64String(Encoding.Default.GetBytes(xmlString));
             return encodedSaml;
+        }
+
+        public static string GetSamlMetadata(SamlMetadata metadata)
+        {
+            var samlMetadata = saml_schema_metadata_2_02.CreateDocument();
+            var entityDescriptor = samlMetadata.EntityDescriptor.Append();
+
+            entityDescriptor.validUntil.Value = new Altova.Types.DateTime(metadata.ValidUntil);
+            entityDescriptor.entityID.Value = metadata.EntityId;
+
+            var idpSsoDescriptor = entityDescriptor.IDPSSODescriptor.Append();
+            idpSsoDescriptor.WantAuthnRequestsSigned.Value = metadata.WantAuthnRequestsSigned;
+            idpSsoDescriptor.protocolSupportEnumeration.Value = "urn:oasis:names:tc:SAML:2.0:protocol";
+
+            var signingKey = idpSsoDescriptor.KeyDescriptor.Append();
+            signingKey.use.Value = "signing";
+            signingKey.KeyInfo.Append().X509Data.Append().X509Certificate.Append().Value = metadata.SigningKey;
+
+            var encryptionKey = idpSsoDescriptor.KeyDescriptor.Append();
+            encryptionKey.use.Value = "encryption";
+            encryptionKey.KeyInfo.Append().X509Data.Append().X509Certificate.Append().Value = metadata.EncryptionKey;
+
+            idpSsoDescriptor.NameIDFormat.Append().Value =
+                "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
+
+            var idpSingleSignOnService = idpSsoDescriptor.SingleSignOnService.Append();
+            idpSingleSignOnService.Binding.Value = metadata.SsoBinding;
+            idpSingleSignOnService.Location.Value = metadata.SsoLocation;
+
+            // TODO: Use SPSSO to bundle this
+            // var acs = samlMetadata.AssertionConsumerService.Append();
+            // acs.Binding.Value = metadata.AcsBinding;
+            // acs.Location.Value = metadata.AcsLocation;
+
+            var organization = entityDescriptor.Organization.Append();
+            var organizationName = organization.OrganizationName.Append();
+            _langValue = "en-US";
+            organizationName.lang.Value = _langValue;
+            organizationName.Value = metadata.OrganizationName;
+
+            var organizationDisplayName = organization.OrganizationDisplayName.Append();
+            organizationDisplayName.Value = metadata.OrganizationDisplayName;
+            organizationDisplayName.lang.Value = _langValue;
+
+            var organizationUrl = organization.OrganizationURL.Append();
+            organizationUrl.lang.Value = _langValue;
+            organizationUrl.Value = metadata.OrganizationUrl;
+
+            var contactPersonTechnical = entityDescriptor.ContactPerson.Append();
+            contactPersonTechnical.contactType2.Value = "technical";
+            contactPersonTechnical.GivenName.Append().Value = metadata.TechnicalContactName;
+            contactPersonTechnical.EmailAddress.Append().Value = metadata.TechnicalContactEmail;
+
+            var contactPersonSupport = entityDescriptor.ContactPerson.Append();
+            contactPersonSupport.contactType2.Value = "support";
+            contactPersonSupport.GivenName.Append().Value = metadata.SupportContactName;
+            contactPersonSupport.EmailAddress.Append().Value = metadata.SupportContactEmail;
+
+            var metadataString = samlMetadata.SaveToString(false, true);
+            return metadataString;
         }
     }
 }

@@ -8,12 +8,9 @@ namespace UniverseSso.Entities
 {
     public static class ExtensionMethods
     {
-        public static void Clear<T>(this DbSet<T> clearable) where T : class
+        public static void Clear<T>(this DbSet<T> dbSet) where T : class
         {
-            while (clearable.Any())
-            {
-                clearable.Remove(clearable.First());
-            }
+            dbSet.RemoveRange(dbSet);
         }
     }
 }

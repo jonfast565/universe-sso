@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using saml_schema_metadata_2_0.md;
 using UniverseSso.Entities;
+using DateTime = Altova.Types.DateTime;
 
 namespace UniverseSso.DataLoader
 {
@@ -12,7 +13,7 @@ namespace UniverseSso.DataLoader
     {
         static async Task Main(string[] args)
         {
-            await LoadProvidersAndFields();
+            // await LoadProvidersAndFields();
             await LoadSpMetadata();
             await LoadIdpMetadata();
         }
@@ -20,14 +21,24 @@ namespace UniverseSso.DataLoader
         private static async Task LoadSpMetadata()
         {
             var loginDatabase = new LoginDbContext();
+            var client = new HttpClient();
 
             loginDatabase.SpMetadata.Clear();
             await loginDatabase.SaveChangesAsync();
 
-            var client = new HttpClient();
             var response = await client.GetAsync(new Uri("https://sptest.iamshowcase.com/testsp_metadata.xml"));
-
             var xmlResponse = await response.Content.ReadAsStringAsync();
+            await LoadSpMetadataToDatabase(xmlResponse, loginDatabase);
+
+            response = await client.GetAsync(new Uri("https://samltest.id/saml/sp"));
+            xmlResponse = await response.Content.ReadAsStringAsync();
+            await LoadSpMetadataToDatabase(xmlResponse, loginDatabase);
+
+            Console.WriteLine("Done!");
+        }
+
+        private static async Task LoadSpMetadataToDatabase(string xmlResponse, LoginDbContext loginDatabase)
+        {
             Console.WriteLine(xmlResponse);
 
             var saml2Metadata = saml_schema_metadata_2_02.LoadFromString(xmlResponse);
@@ -37,13 +48,43 @@ namespace UniverseSso.DataLoader
                 foreach (SPSSODescriptorType spSsoDescriptor in entityDescriptor.SPSSODescriptor)
                 {
                     var entityId = entityDescriptor.entityID.Value;
-                    var validUntil = entityDescriptor.validUntil.Value;
+                    Altova.Types.DateTime validUntil;
+                    try
+                    {
+                        validUntil = entityDescriptor.validUntil.Value;
+                    }
+                    catch (Exception)
+                    {
+                        validUntil = new Altova.Types.DateTime(System.DateTime.Now.AddYears(1));
+                    }
+
                     var protocolAssertion = spSsoDescriptor.protocolSupportEnumeration.Value;
-                    var wantAssertionsSigned = spSsoDescriptor.WantAssertionsSigned.Value;
-                    var signAuthnRequests = spSsoDescriptor.AuthnRequestsSigned.Value;
-                    var acsBinding = spSsoDescriptor.AssertionConsumerService[0].Binding.Value;
-                    var acsLocation = spSsoDescriptor.AssertionConsumerService[0].Location.Value;
-                    var nameIdFormats = spSsoDescriptor.NameIDFormat.First.Value;
+                    bool wantAssertionsSigned;
+                    bool signAuthnRequests;
+
+                    try
+                    {
+                        wantAssertionsSigned = spSsoDescriptor.WantAssertionsSigned.Value;
+                        signAuthnRequests = spSsoDescriptor.AuthnRequestsSigned.Value;
+                    }
+                    catch (Exception)
+                    {
+                        wantAssertionsSigned = false;
+                        signAuthnRequests = false;
+                    }
+
+                    var acsBinding = spSsoDescriptor.AssertionConsumerService.First.Binding.Value;
+                    var acsLocation = spSsoDescriptor.AssertionConsumerService.First.Location.Value;
+
+                    string nameIdFormats;
+                    try
+                    {
+                        nameIdFormats = spSsoDescriptor.NameIDFormat.First.Value;
+                    }
+                    catch (Exception)
+                    {
+                        nameIdFormats = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
+                    }
 
                     var spMetadata = new SpMetadata
                     {
@@ -62,7 +103,6 @@ namespace UniverseSso.DataLoader
                     await loginDatabase.SaveChangesAsync();
                 }
             }
-            Console.WriteLine("Done!");
         }
 
         private static async Task LoadIdpMetadata()

@@ -99,5 +99,16 @@ namespace UniverseSso.Utilities
                 return builder.ToString();
             }
         }
+
+        public static string RandomHash()
+        {
+            var bytes = new byte[16];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(bytes);
+            }
+            var hashString = BitConverter.ToString(bytes);
+            return hashString;
+        }
     }
 }

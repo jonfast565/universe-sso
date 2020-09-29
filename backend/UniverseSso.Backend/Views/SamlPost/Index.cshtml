@@ -13,9 +13,9 @@
 </head>
 <body>
     <form method="post" action="@ViewBag.ACSUrl">
-        <input type="hidden" name="@ViewBag.SamlParameterName" value="'@ViewBag.EncodedSaml'" />
+        <input type="hidden" name="@ViewBag.SamlParameterName" value="@ViewBag.EncodedSaml" />
     @if (ViewBag.RelayState != null) {
-        <input type="hidden" name="RelayState" value="@ViewBag.RelayState"/>
+        <input type="hidden" name="TARGET" value="@ViewBag.RelayState"/>
     }
         <button type="submit" style="display: none">Submit</button>
     </form>
