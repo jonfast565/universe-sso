@@ -1,7 +1,10 @@
 ﻿using saml_schema_protocol_2_0.samlp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Xml;
@@ -11,6 +14,7 @@ using saml_schema_protocol_2_0.saml;
 using UniverseSso.Models.Implementation;
 using UniverseSso.Saml.Implementation;
 using UniverseSso.Utilities;
+using System.Security.Cryptography.Xml;
 
 namespace UniverseSso.Saml
 {
@@ -111,6 +115,7 @@ namespace UniverseSso.Saml
             AppendSamlAttributesToAssertion(attributes, attributeStatement);
 
             var document = samlResponseDocument.SaveToString(false, true);
+            document = SignSaml(document, signingCertificate);
             return document;
         }
 
@@ -167,6 +172,18 @@ namespace UniverseSso.Saml
         {
             var encodedSaml = Convert.ToBase64String(Encoding.Default.GetBytes(xmlString));
             return encodedSaml;
+        }
+
+        private static string SignSaml(string xmlString, byte[] signingCert)
+        {
+            var cert = new X509Certificate2(signingCert);
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(xmlString);
+            var signedXml = SignXml(xmlDocument, cert);
+            var stringWriter = new StringWriter();
+            var xmlTextWriter = new XmlTextWriter(stringWriter);
+            signedXml.WriteTo(xmlTextWriter);
+            return stringWriter.ToString();
         }
 
         public static string GetSamlMetadata(SamlMetadata metadata)
@@ -227,6 +244,24 @@ namespace UniverseSso.Saml
 
             var metadataString = samlMetadata.SaveToString(false, true);
             return metadataString;
+        }
+
+        private static XmlDocument SignXml([NotNull]XmlDocument doc, X509Certificate2 cert)
+        {
+            var signedXml = new SignedXml(doc) {SigningKey = cert.PrivateKey};
+            var reference = new Reference {Uri = ""};
+            var env = new XmlDsigEnvelopedSignatureTransform();
+            var c14N = new XmlDsigExcC14NTransform();
+
+            reference.AddTransform(env);
+            reference.AddTransform(c14N);
+
+            signedXml.AddReference(reference);
+            signedXml.ComputeSignature();
+
+            var signature = signedXml.GetXml();
+            doc.DocumentElement?.AppendChild(signature);
+            return doc;
         }
     }
 }

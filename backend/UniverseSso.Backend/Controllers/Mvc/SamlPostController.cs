@@ -35,11 +35,14 @@ namespace UniverseSso.Backend.Controllers.Mvc
             var idpContext = LoginDbContext.IdpMetadata.First(x => x.SsoLocation == samlRequestObj.DestinationUrl);
             var spContext = LoginDbContext.SpMetadata.First(x => x.AcsLocation == samlRequestObj.AcsUrl);
 
+            Console.WriteLine($"Received AuthnRequest from: {spContext.EntityId}");
+            Console.WriteLine($"Relay state: {relayState}");
+
             var samlResponse = SamlBuilder.GetSamlResponse(
                 samlRequestObj, 
                 new Dictionary<string, string> {{ "Some attribute", "Some value" }}, 
                 relayState,
-                spContext.EntityId,
+                idpContext.EntityId,
                 idpContext.SigningCertificate);
 
             if (samlRequestObj.IsHttpPostProtocolBinding())

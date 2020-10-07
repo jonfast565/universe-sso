@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\saml\AltovaXML\AltovaXML.csproj" />
     <ProjectReference Include="..\..\saml\Altova\Altova.csproj" />
     <ProjectReference Include="..\..\saml\saml_schema_metadata_2_0\saml_schema_metadata_2_0.csproj" />
