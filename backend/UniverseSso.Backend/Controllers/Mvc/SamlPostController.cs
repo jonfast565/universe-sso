@@ -33,9 +33,10 @@ namespace UniverseSso.Backend.Controllers.Mvc
             var samlRequestObj = SamlBuilder.GetSamlRequest(samlRequest, relayState);
 
             var idpContext = LoginDbContext.IdpMetadata.First(x => x.SsoLocation == samlRequestObj.DestinationUrl);
-            var spContext = LoginDbContext.SpMetadata.First(x => x.AcsLocation == samlRequestObj.AcsUrl);
+            // var spContext = LoginDbContext.SpMetadata.First(x => x.AcsLocation == samlRequestObj.AcsUrl);
 
-            Console.WriteLine($"Received AuthnRequest from: {spContext.EntityId}");
+            // Console.WriteLine($"Received AuthnRequest from: {spContext.EntityId}");
+            Console.WriteLine($"Received request: {samlRequestObj.ID}");
             Console.WriteLine($"Relay state: {relayState}");
 
             var samlResponse = SamlBuilder.GetSamlResponse(

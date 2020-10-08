@@ -31,6 +31,7 @@ namespace UniverseSso.Backend
             services.AddTransient<IBackendConfiguration, BackendConfiguration>();
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
+            /*
             services.AddHsts(options =>
             {
                 options.Preload = true;
@@ -39,12 +40,14 @@ namespace UniverseSso.Backend
                 options.ExcludedHosts.Add("example.com");
                 options.ExcludedHosts.Add("www.example.com");
             });
+            
 
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                 options.HttpsPort = 5001;
             });
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,8 +64,8 @@ namespace UniverseSso.Backend
 
             app.UseStaticFiles();
 
-            app.UseHsts();
-            app.UseHttpsRedirection();
+            // app.UseHsts();
+            // app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {
