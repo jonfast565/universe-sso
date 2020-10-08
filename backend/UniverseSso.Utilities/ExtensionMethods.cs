@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -110,5 +111,6 @@ namespace UniverseSso.Utilities
             var hashString = BitConverter.ToString(bytes);
             return hashString;
         }
+
     }
 }

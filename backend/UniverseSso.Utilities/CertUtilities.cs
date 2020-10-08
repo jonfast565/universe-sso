@@ -15,15 +15,21 @@ namespace UniverseSso.Utilities
 {
     public static class CertUtilities
     {
-        public static byte[] CreatePfxFromBinary(byte[] certificate, byte[] privateKey)
+        public struct PfxPasswordPair
+        {
+            public byte[] PfxFile { get; set; }
+            public string Password { get; set; }
+        }
+
+        public static PfxPasswordPair CreatePfxFromBinary(byte[] certificate, byte[] privateKey)
         {
             var parser = new X509CertificateParser();
             var x509 = parser.ReadCertificate(certificate);
-            var pRead = (AsymmetricKeyParameter) new PemReader(new StreamReader(new MemoryStream(privateKey))).ReadObject();
-            var certSerializer = CreatePfxFile(x509, pRead);
+            var pRead = (AsymmetricCipherKeyPair) new PemReader(new StreamReader(new MemoryStream(privateKey))).ReadObject();
+            var certSerializer = CreatePfxFile(x509, pRead.Private);
             return certSerializer;
         }
-        private static byte[] CreatePfxFile(X509Certificate certificate, AsymmetricKeyParameter privateKey)
+        private static PfxPasswordPair CreatePfxFile(X509Certificate certificate, AsymmetricKeyParameter privateKey)
         {
             // create certificate entry
             var certEntry = new X509CertificateEntry(certificate);
@@ -51,7 +57,7 @@ namespace UniverseSso.Utilities
             }
 
             var result = Pkcs12Utilities.ConvertToDefiniteLength(pfxBytes);
-            return result;
+            return new PfxPasswordPair {PfxFile = result, Password = password};
         }
     }
 }

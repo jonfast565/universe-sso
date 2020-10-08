@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Security;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -178,10 +179,11 @@ namespace UniverseSso.Saml
 
         private static string SignSaml(string xmlString, byte[] signingCertificate, byte[] signingPrivateKey)
         {
-            
+            var pfx = CertUtilities.CreatePfxFromBinary(signingCertificate, signingPrivateKey);
+            var x509 = new X509Certificate2(pfx.PfxFile, pfx.Password.ToSecureString());
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(xmlString);
-            var signedXml = SignXml(xmlDocument, cert);
+            var signedXml = SignXml(xmlDocument, x509);
             var stringWriter = new StringWriter();
             var xmlTextWriter = new XmlTextWriter(stringWriter);
             signedXml.WriteTo(xmlTextWriter);
