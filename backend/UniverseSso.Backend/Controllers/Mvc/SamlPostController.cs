@@ -43,7 +43,8 @@ namespace UniverseSso.Backend.Controllers.Mvc
                 new Dictionary<string, string> {{ "Some attribute", "Some value" }}, 
                 relayState,
                 idpContext.EntityId,
-                idpContext.SigningCertificate);
+                idpContext.SigningCertificate,
+                idpContext.SigningPrivateKey);
 
             if (samlRequestObj.IsHttpPostProtocolBinding())
             {

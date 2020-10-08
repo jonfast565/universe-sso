@@ -10,7 +10,9 @@ namespace UniverseSso.Entities
         public bool WantAuthnRequestsSigned { get; set; }
         public string ProtocolSupportEnumeration { get; set; }
         public byte[] SigningCertificate { get; set; }
+        public byte[] SigningPrivateKey { get; set; }
         public byte[] EncryptionCertificate { get; set; }
+        public byte[] EncryptionPrivateKey { get; set; }
         public string NameIdFormats { get; set; }
         public string SsoBinding { get; set; }
         public string SsoLocation { get; set; }

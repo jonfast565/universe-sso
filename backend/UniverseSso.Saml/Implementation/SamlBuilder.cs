@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -15,6 +16,7 @@ using UniverseSso.Models.Implementation;
 using UniverseSso.Saml.Implementation;
 using UniverseSso.Utilities;
 using System.Security.Cryptography.Xml;
+using Org.BouncyCastle.Security;
 
 namespace UniverseSso.Saml
 {
@@ -29,9 +31,9 @@ namespace UniverseSso.Saml
             return parsedSamlRequest;
         }
 
-        public static SamlResponse GetSamlResponse(SamlRequest samlRequest, Dictionary<string, string> attributes, string relayState, string provider, byte[] signingCertificate)
+        public static SamlResponse GetSamlResponse(SamlRequest samlRequest, Dictionary<string, string> attributes, string relayState, string provider, byte[] signingCertificate, byte[] signingPrivateKey)
         {
-            var samlResponseDocument = BuildSamlResponse(samlRequest, attributes, provider, signingCertificate);
+            var samlResponseDocument = BuildSamlResponse(samlRequest, attributes, provider, signingCertificate, signingPrivateKey);
             var encodedSaml = EncodeSaml(samlResponseDocument);
             return new SamlResponse
             {
@@ -46,7 +48,7 @@ namespace UniverseSso.Saml
             };
         }
 
-        private static string BuildSamlResponse(SamlRequest r, Dictionary<string, string> attributes, string provider, byte[] signingCertificate)
+        private static string BuildSamlResponse(SamlRequest r, Dictionary<string, string> attributes, string provider, byte[] signingCertificate, byte[] signingPrivateKey)
         {
             // TODO: Remove hardcoded window (clock skew)
             var now = DateTime.Now.ToUniversalTime();
@@ -115,7 +117,7 @@ namespace UniverseSso.Saml
             AppendSamlAttributesToAssertion(attributes, attributeStatement);
 
             var document = samlResponseDocument.SaveToString(false, true);
-            document = SignSaml(document, signingCertificate);
+            document = SignSaml(document, signingCertificate, signingPrivateKey);
             return document;
         }
 
@@ -174,9 +176,9 @@ namespace UniverseSso.Saml
             return encodedSaml;
         }
 
-        private static string SignSaml(string xmlString, byte[] signingCert)
+        private static string SignSaml(string xmlString, byte[] signingCertificate, byte[] signingPrivateKey)
         {
-            var cert = new X509Certificate2(signingCert);
+            
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(xmlString);
             var signedXml = SignXml(xmlDocument, cert);

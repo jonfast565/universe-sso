@@ -13,7 +13,7 @@ namespace UniverseSso.DataLoader
     {
         static async Task Main(string[] args)
         {
-            // await LoadProvidersAndFields();
+            await LoadProvidersAndFields();
             await LoadSpMetadata();
             await LoadIdpMetadata();
         }
@@ -136,13 +136,17 @@ namespace UniverseSso.DataLoader
                         certs[descriptorType] = certificate;
                     }
 
+                    var privateKey = await File.ReadAllBytesAsync("./privkey.pem");
+
                     var idpMetadata = new IdpMetadata
                     {
                         EntityId = entityId,
                         WantAuthnRequestsSigned = wantAuthnRequestsSigned,
                         ProtocolSupportEnumeration = protocolAssertion,
                         SigningCertificate = certs["signing"],
+                        SigningPrivateKey = privateKey,
                         EncryptionCertificate = certs["encryption"],
+                        EncryptionPrivateKey = privateKey,
                         NameIdFormats = nameIdFormats,
                         SsoBinding = ssoBinding,
                         SsoLocation = ssoLocation

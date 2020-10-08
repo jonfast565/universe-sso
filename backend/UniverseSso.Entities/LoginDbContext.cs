@@ -110,6 +110,8 @@ namespace UniverseSso.Entities
 
                 entity.Property(e => e.EncryptionCertificate).IsRequired();
 
+                entity.Property(e => e.EncryptionPrivateKey).IsRequired();
+
                 entity.Property(e => e.EntityId)
                     .IsRequired()
                     .HasMaxLength(255);
@@ -121,6 +123,8 @@ namespace UniverseSso.Entities
                     .HasMaxLength(255);
 
                 entity.Property(e => e.SigningCertificate).IsRequired();
+
+                entity.Property(e => e.SigningPrivateKey).IsRequired();
 
                 entity.Property(e => e.SsoBinding)
                     .IsRequired()
@@ -205,7 +209,7 @@ namespace UniverseSso.Entities
             modelBuilder.Entity<SpMetadata>(entity =>
             {
                 entity.HasIndex(e => e.EntityId)
-                    .HasName("UQ__SpMetada__9C892F9C54C88F84")
+                    .HasName("UQ__SpMetada__9C892F9C0C0F6825")
                     .IsUnique();
 
                 entity.Property(e => e.AcsBinding)
