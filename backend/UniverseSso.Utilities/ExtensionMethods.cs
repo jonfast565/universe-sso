@@ -108,7 +108,7 @@ namespace UniverseSso.Utilities
             {
                 rng.GetBytes(bytes);
             }
-            var hashString = BitConverter.ToString(bytes);
+            var hashString = "_" + BitConverter.ToString(bytes).Replace("-", string.Empty).ToLowerInvariant();
             return hashString;
         }
 

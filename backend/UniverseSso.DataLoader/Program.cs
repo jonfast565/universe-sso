@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using saml_schema_metadata_2_0.md;
 using UniverseSso.Entities;
-using DateTime = Altova.Types.DateTime;
 
 namespace UniverseSso.DataLoader
 {
@@ -14,10 +12,10 @@ namespace UniverseSso.DataLoader
         static async Task Main(string[] args)
         {
             await LoadProvidersAndFields();
-            await LoadSpMetadata();
-            await LoadIdpMetadata();
+            // await LoadSpMetadata();
+            // await LoadIdpMetadata();
         }
-
+        /*
         private static async Task LoadSpMetadata()
         {
             var loginDatabase = new LoginDbContext();
@@ -157,6 +155,7 @@ namespace UniverseSso.DataLoader
                 }
             }
         }
+        */
 
         private static async Task LoadProvidersAndFields()
         {

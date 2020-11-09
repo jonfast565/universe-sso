@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\saml\saml_schema_metadata_2_0\saml_schema_metadata_2_0.csproj" />
     <ProjectReference Include="..\UniverseSso.Entities\UniverseSso.Entities.csproj" />
   </ItemGroup>
 
@@ -21,13 +20,7 @@
     <None Update="Assets\logo-ncdr.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="cacert.pem">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="idp_metadata.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="privkey.pem">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -57,6 +57,7 @@ namespace UniverseSso.Saml
             var nowWindowEnd = DateTime.Now.AddMinutes(5).ToUniversalTime();
 
             var samlResponseDocument = saml_schema_protocol_2_02.CreateDocument();
+
             var response = samlResponseDocument.Response.Append();
             response.ID.Value = ExtensionMethods.RandomHash();
             response.Version.Value = "2.0";
@@ -64,7 +65,9 @@ namespace UniverseSso.Saml
 
             // TODO: Remove hardcoded url
             var issuer = response.Issuer.Append();
-            issuer.Value = provider;
+            // TODO: Should this be, 'provider' or url?
+            // issuer.Value = provider;
+            issuer.Value = "http://localhost:5000/sso";
 
             var status = response.Status.Append();
             var statusCode = status.StatusCode.Append();
@@ -77,7 +80,9 @@ namespace UniverseSso.Saml
 
             // TODO: Remove hardcoded url
             var assertionIssuer = assertion.Issuer.Append();
-            assertionIssuer.Value = provider;
+            // TODO: Should this be, 'provider' or url?
+            // issuer.Value = provider;
+            assertionIssuer.Value = "http://localhost:5000/sso";
 
             var subject = assertion.Subject.Append();
             var subjectNameId = subject.NameID.Append();
@@ -99,7 +104,7 @@ namespace UniverseSso.Saml
             conditions.NotOnOrAfter.Value = new Altova.Types.DateTime(nowWindowEnd);
 
             // TODO: Removed audience restrictions b/c Shibboleth doesn't respect it on samltest.id 
-            // figure out why
+            // figure out why (also OneLogin says the AcsUrl is not a valid audience)
             // conditions.AudienceRestriction.Append().Audience.Append().Value = r.AcsUrl;
 
             // TODO: Add Authz statement
@@ -118,8 +123,85 @@ namespace UniverseSso.Saml
             AppendSamlAttributesToAssertion(attributes, attributeStatement);
 
             var document = samlResponseDocument.SaveToString(false, true);
-            document = SignSaml(document, signingCertificate, signingPrivateKey);
+            var signatureNeeded = true;
+            if (signatureNeeded)
+            {
+                document = SignSaml(document, signingCertificate, signingPrivateKey);
+                document = RelocateSignature(document);
+            }
             return document;
+        }
+
+        private static XmlNamespaceManager GetSamlNamespaceManager(XmlDocument doc)
+        {
+            var namespaces = new XmlNamespaceManager(doc.NameTable);
+            namespaces.AddNamespace("samlp", "urn:oasis:names:tc:SAML:2.0:protocol");
+            namespaces.AddNamespace("saml", "urn:oasis:names:tc:SAML:2.0:assertion");
+            namespaces.AddNamespace("ds", "http://www.w3.org/2000/09/xmldsig#");
+            return namespaces;
+        }
+
+        private static string RelocateSignature(string document)
+        {
+            var doc = new XmlDocument();
+            doc.LoadXml(document);
+            var namespaces = GetSamlNamespaceManager(doc);
+
+            var response = doc.SelectSingleNode("/samlp:Response", namespaces);
+            var signature = doc.SelectSingleNode("/samlp:Response/ds:Signature", namespaces);
+            var issuer = doc.SelectSingleNode("/samlp:Response/saml:Issuer", namespaces);
+
+            if (response == null)
+            {
+                throw new Exception("Response element is missing");
+            }
+
+            if (signature == null)
+            {
+                throw new Exception("Signature element is missing");
+            }
+            
+            var oldSignatureNode = response.RemoveChild(signature);
+            response.InsertAfter(oldSignatureNode, issuer);
+            SetPrefix(doc);
+
+            var newXml = doc.OuterXml;
+            return newXml;
+        }
+
+        private static void SetPrefix(XmlNode node)
+        {
+            switch (node.Name)
+            {
+                case "Response":
+                case "Status":
+                case "StatusCode":
+                    node.Prefix = "samlp";
+                    break;
+                case "Signature":
+                case "SignedInfo":
+                case "CanonicalizationMethod":
+                case "SignatureMethod":
+                case "Reference":
+                case "Transforms":
+                case "Transform":
+                case "DigestMethod":
+                case "DigestValue":
+                case "KeyInfo":
+                case "X509Data":
+                case "X509Certificate":
+                case "SignatureValue":
+                    node.Prefix = "ds";
+                    break;
+                default:
+                    node.Prefix = "saml";
+                break;
+            }
+            
+            foreach (XmlNode n in node.ChildNodes)
+            {
+                SetPrefix(n);
+            }
         }
 
         private static void AppendSamlAttributesToAssertion(Dictionary<string, string> attributes, AttributeStatementType attributeStatement)

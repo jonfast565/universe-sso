@@ -11,11 +11,11 @@ namespace UniverseSso.TokenBuilder.LegacyFormsAuthentication
 {
     public class LegacyFormsAuthTokenBuilder : IAuthenticationTokenBuilder
     {
-        private readonly LegacyFormsAuthenticationTicketEncryptor _encryptor;
+        private readonly LegacyFormsAuthenticationTicketEncryptor encryptor;
 
         public LegacyFormsAuthTokenBuilder(IBackendConfiguration backendConfiguration)
         {
-            _encryptor = new LegacyFormsAuthenticationTicketEncryptor(
+            encryptor = new LegacyFormsAuthenticationTicketEncryptor(
                 backendConfiguration.FormsAuth.DecryptionKey,
                 backendConfiguration.FormsAuth.ValidationKey, 
                 ShaVersion.Sha1, 
@@ -23,7 +23,7 @@ namespace UniverseSso.TokenBuilder.LegacyFormsAuthentication
         }
         public AuthenticationClaim Parse(string token)
         {
-            var formsAuthenticationTicket = _encryptor.DecryptCookie(token);
+            var formsAuthenticationTicket = encryptor.DecryptCookie(token);
 
             var claim = new AuthenticationClaim
             {
@@ -62,7 +62,7 @@ namespace UniverseSso.TokenBuilder.LegacyFormsAuthentication
                 (string)userData, 
                 (string)cookiePath);
 
-            var encrypted = _encryptor.Encrypt(formsTicket);
+            var encrypted = encryptor.Encrypt(formsTicket);
             return encrypted;
         }
     }
